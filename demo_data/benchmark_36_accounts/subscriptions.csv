@@ -1,0 +1,37 @@
+workspace_id,customer_org,subscription_tier,licensed_seats,renews_on,csm_owner,nps_last_survey
+DEMO-001,Northstar Data Labs,Launch,18,2027-01-02,Account manager 2,68
+DEMO-002,Atlas Cloudworks,Growth,21,2027-01-02,Account manager 3,68
+DEMO-003,BluePeak Analytics,Launch,24,2027-01-02,Account manager 4,68
+DEMO-004,Monarch Automation,Growth,27,2027-01-02,Account manager 5,68
+DEMO-005,Meridian Software,Scale,30,2027-01-02,Account manager 1,68
+DEMO-006,Clearview Technologies,Launch,33,2027-01-02,Account manager 2,68
+DEMO-007,Vela Infrastructure,Growth,36,2026-11-03,Account manager 3,-35
+DEMO-008,Summit Retail Systems,Growth,39,2027-05-27,Account manager 4,15
+DEMO-009,Orbit Digital,Scale,42,2027-05-27,Account manager 5,15
+DEMO-010,Cedarline Platforms,Growth,45,2027-05-27,Account manager 1,45
+DEMO-011,Pioneer Tech Studio,Scale,48,2027-05-27,Account manager 2,45
+DEMO-012,Harborstone Apps,Launch,51,2027-05-27,Account manager 3,45
+DEMO-013,Lattice Data Systems,Launch,54,2027-01-02,Account manager 4,68
+DEMO-014,Quanta Stack,Growth,57,2027-01-02,Account manager 5,68
+DEMO-015,Vertex Operations,Scale,60,2027-01-02,Account manager 1,68
+DEMO-016,Nexa Compute,Launch,63,2027-01-02,Account manager 2,68
+DEMO-017,SignalBridge,Growth,66,2027-01-02,Account manager 3,68
+DEMO-018,Brightline AI,Growth,69,2027-01-02,Account manager 4,68
+DEMO-019,Ember Security,Growth,72,2026-11-03,Account manager 5,-35
+DEMO-020,Horizon Code,Growth,75,2027-05-27,Account manager 1,15
+DEMO-021,NovaScale Software,Launch,78,2027-05-27,Account manager 2,45
+DEMO-022,Kiteworks Labs,Enterprise,81,2027-05-27,Account manager 3,45
+DEMO-023,Acorn Digital,Growth,84,2027-05-27,Account manager 4,45
+DEMO-024,Ardent Cloud,Launch,87,2027-05-27,Account manager 5,45
+DEMO-025,UnionLake AI,Launch,90,2027-01-02,Account manager 1,68
+DEMO-026,FluxWare,Growth,93,2027-01-02,Account manager 2,68
+DEMO-027,OriginFlow Tech,Scale,96,2027-01-02,Account manager 3,68
+DEMO-028,Highland Systems,Launch,99,2027-01-02,Account manager 4,68
+DEMO-029,Anchorpoint,Growth,102,2027-05-27,Account manager 5,15
+DEMO-030,Shoreline Cloud,Growth,105,2026-11-03,Account manager 1,-35
+DEMO-031,Marble Networks,Enterprise,108,2027-05-27,Account manager 2,45
+DEMO-032,Sagebyte Products,Growth,111,2027-05-27,Account manager 3,45
+DEMO-033,Boreal Data,Scale,114,2027-01-02,Account manager 4,68
+DEMO-034,Prism Applications,Growth,117,2027-05-27,Account manager 5,45
+DEMO-035,Eclipse Cloud,Launch,120,2027-01-02,Account manager 1,68
+DEMO-036,TwinPeak Systems,Growth,123,2027-05-27,Account manager 2,15

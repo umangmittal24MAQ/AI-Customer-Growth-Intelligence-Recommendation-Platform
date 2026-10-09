@@ -1,0 +1,13 @@
+customer_id,customer_name,scenario,reviewer_expected_action,reviewer_reason
+DEMO-001,Northstar Data Labs,strong_growth,Up to Growth,Usage and seats growing
+DEMO-002,Atlas Cloudworks,strong_growth,Up to Scale,Monthly usage climbing
+DEMO-003,BluePeak Analytics,strong_growth,Up to Growth,Growing usage
+DEMO-004,Monarch Automation,strong_growth,Up to Scale,API traffic expanding
+DEMO-005,Meridian Software,strong_growth,Up to Enterprise,High engagement
+DEMO-006,Clearview Technologies,strong_growth,Up to Growth,Fast team growth
+DEMO-007,Vela Infrastructure,support_risk,Hold and retain,Unresolved billing dispute near renewal
+DEMO-008,Summit Retail Systems,declining,Hold and retain,Declining feature adoption
+DEMO-009,Orbit Digital,declining,Hold and retain,Engagement drop
+DEMO-010,Cedarline Platforms,thin_evidence,Request more data,Missing usage history
+DEMO-011,Pioneer Tech Studio,steady,No strong opportunity,"Flat usage, renewal far away"
+DEMO-012,Harborstone Apps,steady,No strong opportunity,"Flat usage, renewal far away"

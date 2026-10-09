@@ -1,0 +1,13 @@
+sku,offering_name,tier,seat_price_usd,product_group
+TRJ-CORE-1,Launch,1,14,core-plan
+TRJ-CORE-2,Growth,2,29,core-plan
+TRJ-CORE-3,Scale,3,58,core-plan
+TRJ-CORE-4,Enterprise,4,95,core-plan
+TRJ-SEC-1,Security Compliance Suite,2,11,security
+TRJ-ANA-1,Usage Analytics Add-on,2,8,analytics
+TRJ-API-1,API Automation Pack,2,7,automation
+TRJ-STO-1,Extra Cloud Storage,1,5,storage
+TRJ-ADV-1,Priority Support,2,9,support
+TRJ-OTHER-1,Tennis Coaching Plan,3,48,sports
+TRJ-OTHER-2,Retail POS Terminal,3,39,hardware
+TRJ-OTHER-3,Medical Claims System,4,52,healthcare

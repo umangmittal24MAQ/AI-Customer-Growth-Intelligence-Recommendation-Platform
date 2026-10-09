@@ -1,0 +1,41 @@
+seller_id,store_name,subscription_tier,industry,current_product,seats,active_asins,seller_rating,account_health,renewal_date
+AMZ-0000,Galaxy Electronics,Individual,Electronics,Sponsored Ads Starter,2,2863,4.2,At Risk,2027-05-07
+AMZ-0001,TechVault Store,Enterprise,Electronics,Advertising Enterprise Suite,5,4250,3.1,Critical,2026-10-20
+AMZ-0002,QuickShip Goods,Enterprise,General Merchandise,Multi-Channel Fulfillment Pro,10,1536,3.4,At Risk,2026-08-23
+AMZ-0003,MegaDeal Hub,Individual,General Merchandise,Listing Optimization Pro,2,2810,3.2,Critical,2026-08-22
+AMZ-0004,Urban Style Seller,Individual,Clothing & Apparel,Sponsored Ads Starter,2,183,3.9,At Risk,2026-10-17
+AMZ-0005,HomeEssentials Plus,Professional,Home & Garden,FBA Inventory Optimization,2,1927,4.7,Good,2027-05-16
+AMZ-0006,PrimePick Store,Professional,Clothing & Apparel,A+ Content Creation,4,1961,4.8,Good,2026-12-01
+AMZ-0007,SportZone Direct,Individual,Sports & Outdoors,Listing Optimization Pro,1,411,3.8,At Risk,2027-04-23
+AMZ-0008,EcoLife Products,Professional,Health & Wellness,Review Velocity Program,2,2277,4.5,At Risk,2027-07-23
+AMZ-0009,BudgetBuy Central,Enterprise,General Merchandise,FBA Inventory Optimization,6,4230,4.0,Good,2026-10-17
+AMZ-0010,LuxuryFinds Official,Enterprise,Clothing & Apparel,Brand Registry Pro,5,651,3.2,Critical,2026-10-03
+AMZ-0011,KidZone Toys,Enterprise,Toys & Baby,Sponsored Ads Pro Management,9,320,3.5,Critical,2026-09-24
+AMZ-0012,PetPal Supplies,Individual,Pet Supplies,Review Velocity Program,2,1392,4.9,Good,2027-04-04
+AMZ-0013,AutoParts World,Individual,Automotive,Listing Optimization Pro,1,692,4.4,Good,2027-07-20
+AMZ-0014,FoodFresh Organics,Professional,Grocery & Gourmet,Sponsored Ads Pro Management,5,1247,4.4,At Risk,2027-01-29
+AMZ-0015,BeautyBox Seller,Enterprise,Beauty & Personal,Brand Registry Pro,7,4286,2.7,Critical,2026-09-03
+AMZ-0016,FitGear Pro,Individual,Sports & Outdoors,Sponsored Ads Starter,2,1164,4.7,Good,2026-09-12
+AMZ-0017,NestCraft Home,Professional,Home & Garden,FBA Inventory Optimization,5,2538,3.1,Critical,2026-08-16
+AMZ-0018,TravelReady Gear,Individual,Travel & Luggage,A+ Content Creation,1,4266,4.8,Good,2027-02-24
+AMZ-0019,GardenBloom Store,Individual,Home & Garden,FBA Inventory Optimization,1,4720,4.7,Good,2027-01-19
+AMZ-0020,OfficeElite Supplies,Professional,Office Products,Seller Analytics Dashboard,3,3311,2.6,Critical,2026-10-16
+AMZ-0021,BookHaven Direct,Individual,Books & Media,Listing Optimization Pro,1,1684,4.9,Good,2026-09-10
+AMZ-0022,Visionary Goods,Professional,General Merchandise,Sponsored Ads Starter,4,747,4.2,Good,2026-10-14
+AMZ-0023,Summit Outdoor Gear,Enterprise,Sports & Outdoors,Brand Registry Pro,13,4014,3.1,At Risk,2026-10-02
+AMZ-0024,KitchenCraze,Professional,Home & Garden,FBA Inventory Optimization,4,2839,3.0,Critical,2026-09-10
+AMZ-0025,Elite Fashion Hub,Individual,Clothing & Apparel,Listing Optimization Pro,1,2863,3.4,Critical,2026-08-28
+AMZ-0026,Daily Essentials Co,Enterprise,Grocery & Gourmet,Sponsored Ads Pro Management,12,3014,5.0,Good,2027-04-05
+AMZ-0027,Gadget Guru Store,Professional,Electronics,Review Velocity Program,4,2860,3.6,Critical,2026-09-06
+AMZ-0028,Urban Oasis Decor,Individual,Home & Garden,A+ Content Creation,1,3447,4.7,Good,2027-01-15
+AMZ-0029,Pet Haven Supplies,Professional,Pet Supplies,FBA Inventory Optimization,5,2474,2.7,At Risk,2026-09-15
+AMZ-0030,Beauty Trends Outlet,Individual,Beauty & Personal,Sponsored Ads Starter,2,472,4.8,Good,2027-02-01
+AMZ-0031,Bookworm Direct,Professional,Books & Media,Listing Optimization Pro,5,2037,4.3,At Risk,2027-01-16
+AMZ-0032,Toy Planet,Enterprise,Toys & Baby,Advertising Enterprise Suite,8,4154,3.2,Critical,2026-09-17
+AMZ-0033,Auto Fixer Supplies,Professional,Automotive,Brand Registry Pro,2,1060,4.5,Good,2027-05-14
+AMZ-0034,Healthy Living Shop,Individual,Health & Wellness,Review Velocity Program,1,400,4.7,Good,2027-06-06
+AMZ-0035,Trendy Threads,Professional,Clothing & Apparel,Sponsored Ads Pro Management,4,4946,3.6,At Risk,2026-10-11
+AMZ-0036,NextGen Tech Hub,Enterprise,Electronics,Multi-Channel Fulfillment Pro,10,1914,3.4,Critical,2026-08-21
+AMZ-0037,Active Life Gear,Individual,Sports & Outdoors,Sponsored Ads Starter,2,3458,4.7,Good,2026-09-24
+AMZ-0038,Gourmet Pantry,Enterprise,Grocery & Gourmet,FBA Inventory Optimization,15,1673,3.8,Good,2027-05-28
+AMZ-0039,Wanderlust Gear,Professional,Travel & Luggage,A+ Content Creation,3,4144,4.9,Good,2027-04-29

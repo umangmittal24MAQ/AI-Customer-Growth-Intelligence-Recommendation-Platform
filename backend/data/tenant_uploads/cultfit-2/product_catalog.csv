@@ -1,0 +1,53 @@
+product_id,product_name,tier_level,price_per_seat,complements,category,description
+SZ-0001,Badminton Starter Racket,1,18.0,"Badminton Court Shoes, Shuttlecock Pack (Pack of 6)",Badminton,Lightweight aluminum racket for beginners just picking up badminton.
+SZ-0002,Badminton Pro Racket,3,89.0,"Badminton Court Shoes, Grip Tape, Shuttlecock Pack (Pack of 12)",Badminton,Carbon-fiber racket for competitive badminton players wanting more power and control.
+SZ-0003,Badminton Court Shoes,1,42.0,"Badminton Pro Racket, Ankle Support Sleeve",Badminton,Non-marking indoor court shoes built for quick lateral movement in badminton.
+SZ-0004,Shuttlecock Pack (Pack of 6),1,9.0,Badminton Starter Racket,Badminton,Feather shuttlecocks for casual and club-level badminton play.
+SZ-0005,Shuttlecock Pack (Pack of 12),2,16.0,Badminton Pro Racket,Badminton,Tournament-grade feather shuttlecocks for competitive play.
+SZ-0006,Grip Tape,1,6.0,"Badminton Pro Racket, Badminton Starter Racket",Badminton,Sweat-absorbing grip tape for badminton and other racket sports.
+SZ-0007,Running Shoes - Entry,1,45.0,"Running Socks (3-Pack), Running Shorts",Running,Cushioned everyday running shoes for beginner to casual runners.
+SZ-0008,Running Shoes - Pro Marathon,3,140.0,"Compression Socks, GPS Running Watch",Running,Carbon-plated racing shoes built for marathon and race-day performance.
+SZ-0009,Running Shorts,1,22.0,Running Shoes - Entry,Running,"Breathable lightweight shorts with liner, built for long runs."
+SZ-0010,Running Socks (3-Pack),1,12.0,"Running Shoes - Entry, Running Shoes - Pro Marathon",Running,Blister-resistant running socks with arch support.
+SZ-0011,Compression Socks,2,19.0,Running Shoes - Pro Marathon,Running,Graduated compression socks for recovery after long-distance runs.
+SZ-0012,GPS Running Watch,3,199.0,Running Shoes - Pro Marathon,Running,"Wrist GPS watch tracking pace, distance, and heart rate."
+SZ-0013,Cricket Bat - Willow Starter,1,55.0,"Cricket Batting Gloves, Cricket Helmet",Cricket,Kashmir willow bat suited for club-level and weekend cricket.
+SZ-0014,Cricket Bat - English Willow Pro,3,220.0,"Cricket Batting Gloves, Cricket Pads",Cricket,Grade 1 English willow bat for serious club and league players.
+SZ-0015,Cricket Batting Gloves,1,28.0,"Cricket Bat - Willow Starter, Cricket Bat - English Willow Pro",Cricket,Padded batting gloves protecting fingers and knuckles at the crease.
+SZ-0016,Cricket Pads,2,48.0,Cricket Bat - English Willow Pro,Cricket,Lightweight leg pads for batting protection.
+SZ-0017,Cricket Helmet,2,65.0,Cricket Bat - Willow Starter,Cricket,Protective helmet with adjustable grille for batting and close fielding.
+SZ-0018,Football Boots - Firm Ground,1,38.0,"Football Socks, Shin Guards",Football,"Firm-ground football boots for natural grass pitches, entry level."
+SZ-0019,Football Boots - Pro FG,3,130.0,"Shin Guards, Football Socks",Football,Lightweight pro-level firm-ground boots for competitive matches.
+SZ-0020,Shin Guards,1,14.0,"Football Boots - Firm Ground, Football Boots - Pro FG",Football,Lightweight shin guards with ankle protection.
+SZ-0021,Football Socks,1,8.0,Football Boots - Firm Ground,Football,Cushioned football socks with grip zones.
+SZ-0022,Match Football (Size 5),1,25.0,Football Boots - Pro FG,Football,Official size 5 match football for club and league play.
+SZ-0023,Adjustable Dumbbell Set,1,75.0,"Weightlifting Gloves, Yoga Mat",Gym & Strength,Space-saving adjustable dumbbells for home strength training.
+SZ-0024,Olympic Barbell Set,3,260.0,"Weightlifting Belt, Weightlifting Gloves",Gym & Strength,Full Olympic barbell and plate set for serious strength training.
+SZ-0025,Weightlifting Gloves,1,15.0,"Adjustable Dumbbell Set, Olympic Barbell Set",Gym & Strength,Padded gloves protecting grip during weight training.
+SZ-0026,Weightlifting Belt,2,32.0,Olympic Barbell Set,Gym & Strength,Support belt for heavy squats and deadlifts.
+SZ-0027,Resistance Band Set,1,18.0,Adjustable Dumbbell Set,Gym & Strength,Set of 5 resistance bands for strength and mobility work.
+SZ-0028,Road Bike - Entry,1,320.0,"Cycling Helmet, Bike Repair Kit",Cycling,Aluminum-frame road bike for new cyclists and commuting.
+SZ-0029,Road Bike - Carbon Pro,3,1450.0,"Cycling Helmet, Cycling Computer",Cycling,Carbon-frame road bike for serious road cyclists.
+SZ-0030,Cycling Helmet,1,45.0,"Road Bike - Entry, Road Bike - Carbon Pro",Cycling,Ventilated helmet with adjustable fit for road cycling.
+SZ-0031,Bike Repair Kit,1,22.0,Road Bike - Entry,Cycling,Puncture repair kit with tire levers and mini pump.
+SZ-0032,Cycling Computer,2,58.0,Road Bike - Carbon Pro,Cycling,"Handlebar computer tracking speed, distance, and cadence."
+SZ-0033,Swimsuit - Training,1,26.0,"Swim Goggles, Swim Cap",Swimming,Chlorine-resistant training swimsuit for regular pool sessions.
+SZ-0034,Wetsuit - Open Water,3,180.0,"Swim Goggles, Swim Tow Float",Swimming,Buoyant wetsuit for open-water swimming and triathlon training.
+SZ-0035,Swim Goggles,1,12.0,"Swimsuit - Training, Wetsuit - Open Water",Swimming,Anti-fog swim goggles with UV protection.
+SZ-0036,Swim Cap,1,5.0,Swimsuit - Training,Swimming,Silicone swim cap reducing drag in the pool.
+SZ-0037,Swim Tow Float,2,20.0,Wetsuit - Open Water,Swimming,High-visibility tow float for open-water swim safety.
+SZ-0038,Yoga Mat - Standard,1,20.0,"Yoga Blocks, Yoga Strap",Yoga & Fitness,Non-slip 6mm yoga mat for studio or home practice.
+SZ-0039,Yoga Mat - Pro Alignment,2,55.0,"Yoga Blocks, Yoga Strap",Yoga & Fitness,Alignment-marked premium mat for serious yoga practitioners.
+SZ-0040,Yoga Blocks (Set of 2),1,14.0,"Yoga Mat - Standard, Yoga Mat - Pro Alignment",Yoga & Fitness,Foam blocks for support and alignment in yoga poses.
+SZ-0041,Yoga Strap,1,8.0,Yoga Mat - Standard,Yoga & Fitness,Stretch strap for improving flexibility in yoga practice.
+SZ-0042,Fitness Tracker Band,2,60.0,Yoga Mat - Pro Alignment,Yoga & Fitness,"Wrist band tracking steps, heart rate, and workout sessions."
+SZ-0043,Hiking Boots - Entry,1,55.0,"Hiking Backpack, Trekking Poles",Camping & Hiking,Waterproof hiking boots for day hikes and light trails.
+SZ-0044,Hiking Boots - Pro Trail,3,165.0,"Hiking Backpack, Trekking Poles",Camping & Hiking,Rugged hiking boots for multi-day treks and rough terrain.
+SZ-0045,Hiking Backpack 40L,1,68.0,"Hiking Boots - Entry, Hiking Boots - Pro Trail",Camping & Hiking,Multi-day hiking backpack with rain cover and hydration sleeve.
+SZ-0046,Trekking Poles (Pair),1,30.0,Hiking Boots - Pro Trail,Camping & Hiking,Adjustable trekking poles for stability on hilly trails.
+SZ-0047,2-Person Tent,2,95.0,Hiking Backpack 40L,Camping & Hiking,Lightweight 2-person tent for weekend camping trips.
+SZ-0048,Team Jersey - Standard,1,24.0,"Team Shorts, Team Socks",Team Sportswear,Breathable team jersey for club-level matches and training.
+SZ-0049,Team Jersey - Pro Match,2,55.0,"Team Shorts, Team Socks",Team Sportswear,Match-day jersey with moisture-wicking pro fabric.
+SZ-0050,Team Shorts,1,15.0,"Team Jersey - Standard, Team Jersey - Pro Match",Team Sportswear,Matching team shorts for training and match day.
+SZ-0051,Team Socks,1,7.0,Team Jersey - Standard,Team Sportswear,"Matching team socks, sold by the set."
+SZ-0052,Team Training Bibs (Set of 10),1,40.0,Team Jersey - Standard,Team Sportswear,Set of 10 colored bibs for training-ground scrimmages.

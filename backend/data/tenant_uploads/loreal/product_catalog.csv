@@ -1,0 +1,19 @@
+product_id,product_name,category,description,price_per_seat,features
+LOR-ELV-SH,Elvive Total Repair Shampoo Line,Haircare,Reparative shampoo range for damaged hair.,149.0,Total Repair 5 Shampoo|Anti-Breakage Formula|Salon Retail Display|Bulk Restock Program
+LOR-ELV-CN,Elvive Total Repair Conditioner Line,Haircare,Matching conditioner and hair mask range.,149.0,Total Repair Conditioner|Reparative Hair Mask|Leave-In Serum|Cross-Sell Bundle Kit
+LOR-ELV-SER,Elvive Hyaluron Plump Serum,Haircare,Hydrating hair serum with hyaluronic acid.,199.0,72H Hydration Serum|Plumping Hair Care|Scalp Treatment|Sample Sachet Program
+LOR-DREAM,Elvive Dream Lengths Treatment,Haircare,Long-hair repair and anti-split-end treatment.,179.0,No-Haircut Cream|Split-End Sealer|Length Repair Mask|Retail Merchandising Kit
+LOR-PREF,Preference Hair Color Range,Hair Color,At-home permanent hair color line.,249.0,12-Week Fade-Defy Color|40+ Shade Range|Shade Consultation Chart|In-Store Color Bar
+LOR-EXCEL,Excellence Creme Color Line,Hair Color,Triple-protection permanent color range.,269.0,Triple Care Color|Grey Coverage Formula|Pre-Color Serum|Colorist Training Session
+LOR-SALON,Professional Salon Color Kit,Professional,Salon-grade color and developer system.,599.0,Majirel Color System|Oxydant Developer Range|Salon Colorist Certification|Priority Trade Support
+LOR-REVIT-SER,Revitalift Anti-Aging Serum,Skincare,Pro-retinol and vitamin C anti-aging serum.,299.0,Pro-Retinol Serum|Vitamin C Booster|Wrinkle-Correct Formula|Beauty Advisor Kit
+LOR-REVIT-CR,Revitalift Day & Night Cream,Skincare,Anti-wrinkle day and night moisturizer set.,259.0,Hydrating Day Cream|Regenerating Night Cream|SPF 30 Protection|Gift-With-Purchase Program
+LOR-AGE,Age Perfect Skincare Set,Skincare,Mature-skin care and firming range.,289.0,Rosy Tone Moisturizer|Cell Renewal Serum|Eye Renewal Cream|Mature-Skin Consultation Guide
+LOR-TRUE,True Match Foundation Line,Makeup,Skin-matching liquid foundation range.,229.0,45-Shade Foundation|Shade-Finder Tool|Super Blendable Formula|In-Store Match Station
+LOR-INFAL,Infallible Matte Foundation,Makeup,24-hour long-wear matte foundation.,219.0,24H Long-Wear|Transfer-Proof Matte|Full Coverage Formula|Tester Unit Program
+LOR-MASC,Voluminous Mascara Range,Makeup,Volumizing and lengthening mascara line.,189.0,Lash Paradise Mascara|Volume Building Formula|Waterproof Option|Eye-Look Display Stand
+LOR-LIP,Colour Riche Lipstick Line,Makeup,Moisturizing satin-finish lipstick range.,199.0,Satin Finish Lipstick|30+ Shade Range|Nourishing Oil Formula|Lip Bar Merchandising
+LOR-MEN,Men Expert Grooming Line,Men,Men's skincare and grooming range.,209.0,Hydra Energetic Moisturizer|Anti-Fatigue Serum|Charcoal Face Wash|Men's Section Setup
+LOR-PARADISE,Paradise Enriched Serum Line,Skincare,Antioxidant floral facial serum range.,279.0,Floral Extract Serum|Antioxidant Boost|Radiance Treatment|Premium Retail Placement
+LOR-TAN,Sublime Bronze Self-Tan Range,Skincare,Streak-free self-tanning product line.,169.0,Self-Tanning Serum|Streak-Free Mousse|Gradual Glow Lotion|Seasonal Promo Kit
+LOR-PRO-SUITE,L'Oreal Pro Partner Suite,Platform,Full multi-line distribution and training package.,1499.0,All Product Lines Access|Dedicated Trade Manager|Quarterly Business Reviews|Priority Restock SLA|Staff Training Program

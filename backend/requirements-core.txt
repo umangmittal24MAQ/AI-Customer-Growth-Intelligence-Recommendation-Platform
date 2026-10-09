@@ -1,0 +1,18 @@
+# Traject local/demo backend (rule-based fallback; no IndiaAI key required)
+# Use Python 3.11 or 3.12, in a fresh virtual environment.
+fastapi>=0.100
+uvicorn[standard]>=0.24
+pydantic>=2.0
+python-dotenv>=1.0
+pandas>=2.0
+numpy>=1.25
+faker>=20
+openpyxl>=3.1
+python-multipart>=0.0.9
+requests>=2.31
+apscheduler>=3.10
+# Required only for running backend tests:
+pytest>=8
+
+# OpenAI-compatible client for IndiaAI Qwen
+openai>=1.0,<3

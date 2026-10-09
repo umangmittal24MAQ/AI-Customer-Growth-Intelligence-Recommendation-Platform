@@ -1,0 +1,26 @@
+seller_id,issue_type,severity,description,opened_date,resolved
+AMZ-0001,A+ Content Error,high,"Storage limit exceeded, excess units being removed.",2026-07-29,False
+AMZ-0002,Listing Hijack,high,A+ content rejected by Amazon moderation.,2026-07-26,False
+AMZ-0003,Policy Violation,medium,FBA reimbursement pending for damaged inventory.,2026-06-13,False
+AMZ-0004,FBA Reimbursement,medium,Seller rating dropped below threshold.,2026-06-28,False
+AMZ-0006,Listing Hijack,low,Listing removed due to IP complaint.,2026-05-22,True
+AMZ-0008,Policy Violation,medium,Seller account at risk of suspension.,2026-07-09,True
+AMZ-0010,Listing Hijack,medium,Listing removed due to IP complaint.,2026-05-26,False
+AMZ-0011,Account Suspension,medium,Seller account at risk of suspension.,2026-06-15,False
+AMZ-0014,FBA Reimbursement,medium,Seller account at risk of suspension.,2026-07-18,True
+AMZ-0015,A+ Content Error,medium,Seller rating dropped below threshold.,2026-07-17,False
+AMZ-0017,Listing Hijack,high,Listing removed due to IP complaint.,2026-06-09,False
+AMZ-0018,Policy Violation,low,FBA reimbursement pending for damaged inventory.,2026-05-07,True
+AMZ-0019,Policy Violation,low,Listing removed due to IP complaint.,2026-05-09,True
+AMZ-0020,Account Suspension,high,A+ content rejected by Amazon moderation.,2026-05-20,False
+AMZ-0022,Listing Hijack,medium,"Storage limit exceeded, excess units being removed.",2026-07-25,True
+AMZ-0023,FBA Reimbursement,high,Listing removed due to IP complaint.,2026-06-10,False
+AMZ-0024,FBA Reimbursement,medium,Seller account at risk of suspension.,2026-07-16,False
+AMZ-0025,A+ Content Error,medium,Seller account at risk of suspension.,2026-06-11,False
+AMZ-0027,Account Suspension,high,"Storage limit exceeded, excess units being removed.",2026-07-01,False
+AMZ-0029,Listing Hijack,medium,FBA reimbursement pending for damaged inventory.,2026-06-16,False
+AMZ-0031,Listing Hijack,medium,Account flagged for review by Amazon compliance team.,2026-07-14,False
+AMZ-0032,Listing Hijack,high,"Storage limit exceeded, excess units being removed.",2026-07-13,False
+AMZ-0035,Policy Violation,medium,Seller account at risk of suspension.,2026-08-01,False
+AMZ-0036,Listing Hijack,medium,A+ content rejected by Amazon moderation.,2026-05-09,False
+AMZ-0038,A+ Content Error,medium,FBA reimbursement pending for damaged inventory.,2026-07-08,False

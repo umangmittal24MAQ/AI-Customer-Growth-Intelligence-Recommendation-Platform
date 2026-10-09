@@ -1,0 +1,23 @@
+account_ref,company_name,plan_level,seat_licenses,renewal_date,ae_owner,csat_score
+NS-0000,Alexander-Walton,Business,228,2027-02-26,Mark Miller,4.4
+NS-0001,Edwards-Bell,Business,178,2026-11-09,Kathleen Cox,3.7
+NS-0002,Vance PLC,Business,193,2027-04-28,David Burnett Jr.,3.2
+NS-0003,Thompson Ltd,Team,222,2026-09-15,Melissa Hebert,3.6
+NS-0004,Gray-Scott,Team,284,2027-01-03,Ricardo Welch,3.3
+NS-0005,"Norton, Jackson and Knight",Team,172,2027-07-10,Jonathan Gallagher,3.2
+NS-0006,"Barker, Arnold and Francis",Business,223,2026-10-30,Stephanie Davis,4.2
+NS-0007,Thompson Group,Business,233,2026-08-27,Lisa White,4.3
+NS-0008,Smith-Serrano,Business,227,2026-12-24,Angela Garcia,4.1
+NS-0009,Norris-Vaughn,Team,43,2027-07-15,Michelle Rowe,4.1
+NS-0010,Martinez LLC,Business,267,2027-07-19,Kelly Nguyen,2.9
+NS-0011,"Contreras, Thomas and Robinson",Team,78,2027-06-13,Kimberly Davis,4.2
+NS-0012,"Wallace, George and Chan",Business,22,2026-10-09,Austin Santos,2.7
+NS-0013,Ellis-Maldonado,Enterprise,192,2027-02-07,Kyle Lindsey Jr.,3.5
+NS-0014,Spencer LLC,Enterprise,21,2027-06-11,Paula Carr,2.9
+NS-0015,Berg Group,Business,194,2027-02-12,Teresa Smith,3.6
+NS-0016,"Watson, Wilson and Guerrero",Team,298,2026-10-15,Mark Reyes,3.8
+NS-0017,Le-Campbell,Business,165,2027-07-04,James Gardner,3.2
+NS-0018,"Hill, Cox and Gutierrez",Team,18,2026-11-09,Anthony Mendoza,3.7
+NS-0019,Adams Inc,Business,292,2026-10-05,Angela Richardson,3.2
+NS-0020,Thompson-Kennedy,Business,233,2026-11-23,Erica Wheeler,5.0
+NS-0021,Bennett-Hanna,Business,256,2026-11-16,Joshua Miller,2.8

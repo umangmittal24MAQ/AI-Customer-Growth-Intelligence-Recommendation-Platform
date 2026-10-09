@@ -1,0 +1,4 @@
+workspace_id,issue_category,summary,opened_on,is_closed
+DEMO-003,onboarding,Customer asks about additional seats and higher-tier capacity,2026-09-29,True
+DEMO-006,onboarding,Customer asks about additional seats and higher-tier capacity,2026-09-29,True
+DEMO-007,billing,URGENT: contract billing dispute and cancellation request not resolved,2026-10-03,False

@@ -1,0 +1,8 @@
+sku,offering_name,tier,seat_price_usd,product_group
+NS-TEAM,Team,1,10.0,core-plan
+NS-BIZ,Business,2,24.0,core-plan
+NS-ENT,Enterprise,3,47.0,core-plan
+NS-FORECAST,Pipeline Forecasting Add-on,2,7.0,analytics
+NS-DIALER,Power Dialer Add-on,2,6.0,technical
+NS-SEC,SSO & Access Controls Add-on,2,5.5,security
+NS-CSM,Dedicated CSM Plan,3,9.0,support

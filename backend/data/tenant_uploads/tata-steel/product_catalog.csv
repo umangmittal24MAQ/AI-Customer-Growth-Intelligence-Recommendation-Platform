@@ -1,0 +1,8 @@
+sku,offering_name,tier,seat_price_usd,product_group
+IF-STD,Standard Service,1,15.0,core-plan
+IF-PREM,Premium Service,2,32.0,core-plan
+IF-FULL,Full Coverage,3,58.0,core-plan
+IF-PREDICT,Predictive Maintenance Add-on,2,9.0,technical
+IF-SAFETY,Safety Compliance Add-on,2,6.5,security
+IF-PARTS,Priority Parts Program,1,5.0,support
+IF-24-7,24/7 Technician Line Add-on,2,7.0,support

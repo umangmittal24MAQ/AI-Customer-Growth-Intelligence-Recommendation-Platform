@@ -1,0 +1,12 @@
+seller_id,issue_type,severity,description,opened_date,resolved
+GRO-0004,Damaged Perishables,medium,Damaged perishable units reported on delivery.,2026-05-19,True
+GRO-0005,Labeling Violation,high,High-demand SKU out of stock during promotion.,2026-07-07,False
+GRO-0006,Damaged Perishables,medium,Seller fulfillment rating dropped below threshold.,2026-05-15,False
+GRO-0007,Stock Out,low,Nutrition labeling did not meet marketplace policy.,2026-07-29,True
+GRO-0009,Expiry Compliance,high,Seller fulfillment rating dropped below threshold.,2026-07-06,True
+GRO-0011,Cold Chain Break,low,High-demand SKU out of stock during promotion.,2026-07-30,True
+GRO-0012,Damaged Perishables,low,Nutrition labeling did not meet marketplace policy.,2026-08-04,True
+GRO-0013,Cold Chain Break,high,Products flagged for near-expiry compliance review.,2026-06-02,True
+GRO-0014,Expiry Compliance,high,High-demand SKU out of stock during promotion.,2026-05-18,True
+GRO-0017,Stock Out,medium,Perishable shipment exceeded safe temperature window.,2026-06-14,True
+GRO-0020,Stock Out,medium,Nutrition labeling did not meet marketplace policy.,2026-07-17,False

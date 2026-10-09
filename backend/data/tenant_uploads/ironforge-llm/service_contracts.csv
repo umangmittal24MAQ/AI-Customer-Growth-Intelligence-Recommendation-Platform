@@ -1,0 +1,23 @@
+plant_code,facility_name,service_plan,machine_count,contract_expiry,region_manager,safety_incident_count_ytd
+IF-0000,Wall Ltd Plant,Standard Service,50,2027-07-28,Amanda Morales,4
+IF-0001,Cantu and Sons Plant,Premium Service,17,2027-05-18,Christopher Dougherty MD,1
+IF-0002,Mendez-Burke Plant,Standard Service,121,2026-10-13,Shawn Williams,6
+IF-0003,Alvarez-Phillips Plant,Premium Service,175,2027-05-04,Lisa Hill,4
+IF-0004,"Chen, Dillon and Munoz Plant",Full Coverage,86,2027-03-20,Megan Vargas,4
+IF-0005,"Adams, Young and Fernandez Plant",Full Coverage,134,2027-03-12,Christopher Hill,6
+IF-0006,"Young, Harrington and Mckay Plant",Full Coverage,119,2026-10-26,Walter Davis,5
+IF-0007,"Thomas, Jones and Robertson Plant",Premium Service,120,2026-12-16,Adam Smith,6
+IF-0008,Jordan Ltd Plant,Standard Service,220,2027-06-28,Kelly Bender,2
+IF-0009,"Wells, Roberts and Hester Plant",Full Coverage,129,2027-06-22,Brenda Huynh,1
+IF-0010,Houston Group Plant,Premium Service,117,2026-09-14,Jeffery Leonard Jr.,5
+IF-0011,Austin LLC Plant,Premium Service,65,2026-12-23,Gene Rivers,2
+IF-0012,"Myers, Morris and Ross Plant",Premium Service,143,2026-09-16,Richard Baldwin,1
+IF-0013,Montgomery-Jackson Plant,Standard Service,64,2027-02-18,Nathan Dixon,5
+IF-0014,Robinson Ltd Plant,Standard Service,185,2026-11-23,Julie Logan,0
+IF-0015,Cantu PLC Plant,Premium Service,109,2027-01-22,Adam Bishop,4
+IF-0016,"Craig, Ryan and Ibarra Plant",Premium Service,111,2026-09-06,Clarence Mathews,1
+IF-0017,"Porter, Lewis and Johnson Plant",Premium Service,104,2027-06-01,Billy Potter,5
+IF-0018,"Tran, Williams and Mason Plant",Standard Service,200,2027-05-27,Margaret Rodriguez,3
+IF-0019,Smith-Wilson Plant,Premium Service,6,2027-02-02,Kara Mendez,2
+IF-0020,Hopkins Ltd Plant,Premium Service,218,2027-03-08,Angela Young,4
+IF-0021,"Shaw, Lane and Sims Plant",Full Coverage,193,2027-05-12,Daniel Wilson,6

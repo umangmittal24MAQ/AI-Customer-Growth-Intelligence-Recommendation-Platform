@@ -1,0 +1,19 @@
+product_id,product_name,category,description,price_per_seat,features
+GRO-STAPLE,Everyday Staples Line,Grocery,Core pantry staples product line.,149.0,Rice & Flour Range|Cooking Oils|Sugar & Salt Packs|Bulk Restock Program
+GRO-BEV,Beverages Assortment,Beverages,Hot and cold beverage product line.,179.0,Coffee & Tea Range|Juices & Soft Drinks|Energy Drinks|Chilled Display Support
+GRO-SNACK,Snacks & Confectionery,Snacks,Packaged snacks and chocolate line.,169.0,Chips & Namkeen|Cookies & Biscuits|Chocolate Range|Impulse-Buy Placement
+GRO-DAIRY,Dairy & Chilled Line,Dairy,Refrigerated dairy product line.,229.0,Milk & Yogurt|Cheese Range|Butter & Cream|Cold-Chain Logistics Kit
+GRO-FROZEN,Frozen Foods Range,Frozen,Frozen ready-to-cook product line.,249.0,Frozen Pizza & Nuggets|Ice Cream Range|Frozen Vegetables|Freezer Lane Setup
+GRO-ORGANIC,Organic & Natural Line,Organic,Certified organic grocery product line.,299.0,Organic Grains|Cold-Pressed Oils|Natural Sweeteners|Organic Certification Badge
+GRO-HOUSE,Household Essentials,Household,Cleaning and home-care product line.,159.0,Detergents & Cleaners|Tissue & Wipes|Dishwash Range|Multipack Bundle Program
+GRO-PCARE,Personal Care Line,Personal Care,Everyday personal care product line.,189.0,Shampoo & Body Wash|Toothpaste Range|Face Wash|Cross-Category Placement
+GRO-BABY,Baby Care Range,Baby,Infant food and care product line.,269.0,Diapers & Wipes|Infant Formula|Baby Food Jars|Parent Subscription Program
+GRO-PET,Pet Supplies Line,Pet,Pet food and treats product line.,199.0,Dog & Cat Food|Pet Treats|Grooming Supplies|Auto-Replenish Program
+GRO-SPICE,Spices & Condiments,Grocery,Cooking spices and sauces product line.,179.0,Whole & Ground Spices|Sauces & Ketchup|Pickles & Pastes|Regional Cuisine Kit
+GRO-BAKERY,Bakery & Breakfast,Bakery,"Bread, cereal and breakfast product line.",189.0,Bread & Buns|Breakfast Cereals|Jams & Spreads|Fresh Bakery Logistics
+GRO-HEALTH,Health & Wellness Foods,Health,Nutrition and wellness product line.,279.0,Protein & Supplements|Sugar-Free Range|Superfoods|Wellness Advisor Program
+GRO-ADS,Sponsored Grocery Ads,Advertising,Marketplace ad and promotion service.,399.0,Sponsored Product Ads|Deal-of-the-Day Slots|Coupon Campaigns|Ad Performance Reports
+GRO-FRESH,Fresh Produce Program,Produce,Fruits and vegetables fulfillment line.,329.0,Fruits & Vegetables Range|Same-Day Fresh Delivery|Quality Grading|Wastage Recovery Support
+GRO-ANALYTICS,Grocery Analytics Dashboard,Analytics,Sales and demand analytics service.,249.0,Demand Forecasting|Basket Analysis|Competitor Price Tracking|Custom Reports
+GRO-SUB,Subscribe & Save Program,Strategy,Recurring subscription order service.,219.0,Auto-Delivery Setup|Loyalty Discounts|Retention Analytics|Churn-Reduction Toolkit
+GRO-PRO,Grocery Pro Seller Suite,Platform,Full-service grocery account package.,1599.0,All Product Lines Access|Dedicated Account Manager|Cold-Chain Priority|Quarterly Business Reviews|Compliance Support

@@ -1,0 +1,12 @@
+partner_id,issue_type,severity,description,opened_date,resolved
+LOR-0000,Product Recall Query,high,In-store promotional display kit delayed.,2026-06-03,True
+LOR-0004,Product Recall Query,medium,Wholesale pricing tier mismatch on latest invoice.,2026-06-19,True
+LOR-0005,Pricing Dispute,medium,Shipment arrived with damaged retail units.,2026-05-07,True
+LOR-0006,Damaged Shipment,high,Partner margin dropped below agreed threshold.,2026-07-09,False
+LOR-0007,Stock Shortage,low,Requested restock not fulfilled within SLA window.,2026-05-19,True
+LOR-0008,Stock Shortage,medium,Wholesale pricing tier mismatch on latest invoice.,2026-06-09,True
+LOR-0010,Damaged Shipment,low,Query on batch recall for a discontinued shade.,2026-07-30,False
+LOR-0011,Pricing Dispute,low,Shipment arrived with damaged retail units.,2026-05-25,True
+LOR-0013,Stock Shortage,high,Cold-chain break suspected on skincare serums.,2026-06-11,False
+LOR-0014,Stock Shortage,medium,Requested restock not fulfilled within SLA window.,2026-07-29,True
+LOR-0021,Stock Shortage,medium,Cold-chain break suspected on skincare serums.,2026-07-21,True

@@ -1,0 +1,13 @@
+workspace_id,customer_org,subscription_tier,licensed_seats,renews_on,csm_owner,nps_last_survey
+DEMO-001,Northstar Data Labs,Launch,18,2027-01-02,Account manager 2,68
+DEMO-002,Atlas Cloudworks,Growth,21,2027-01-02,Account manager 3,68
+DEMO-003,BluePeak Analytics,Launch,24,2027-01-02,Account manager 4,68
+DEMO-004,Monarch Automation,Growth,27,2027-01-02,Account manager 5,68
+DEMO-005,Meridian Software,Scale,30,2027-01-02,Account manager 1,68
+DEMO-006,Clearview Technologies,Launch,33,2027-01-02,Account manager 2,68
+DEMO-007,Vela Infrastructure,Growth,36,2026-11-03,Account manager 3,-35
+DEMO-008,Summit Retail Systems,Growth,39,2027-05-27,Account manager 4,15
+DEMO-009,Orbit Digital,Scale,42,2027-05-27,Account manager 5,15
+DEMO-010,Cedarline Platforms,Growth,45,2027-05-27,Account manager 1,45
+DEMO-011,Pioneer Tech Studio,Scale,48,2027-05-27,Account manager 2,45
+DEMO-012,Harborstone Apps,Launch,51,2027-05-27,Account manager 3,45

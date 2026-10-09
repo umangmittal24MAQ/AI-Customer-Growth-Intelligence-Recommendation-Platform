@@ -1,0 +1,8 @@
+sku,offering_name,tier,seat_price_usd,product_group
+BM-BASIC,Basic POS,1,11.0,core-plan
+BM-ADV,Advanced POS,2,26.0,core-plan
+BM-ENT,Enterprise Retail,3,49.0,core-plan
+BM-LOYALTY,Loyalty Program Add-on,2,5.5,analytics
+BM-INVENTORY,Inventory Forecasting Add-on,2,8.0,analytics
+BM-PAYMENTS,Integrated Payments Add-on,1,4.0,technical
+BM-SUPPORT,Premium Store Support,2,4.5,support

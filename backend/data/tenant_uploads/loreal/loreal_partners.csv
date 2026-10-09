@@ -1,0 +1,23 @@
+partner_id,partner_name,subscription_tier,industry,current_product,seats,active_skus,partner_rating,account_health,renewal_date
+LOR-0000,Glamour Salon & Spa,Retail,Pharmacy,Colour Riche Lipstick Line,6,291,4.2,At Risk,2027-03-04
+LOR-0001,BeautyMart Retail,Retail,E-commerce,Elvive Hyaluron Plump Serum,4,231,4.4,At Risk,2027-08-04
+LOR-0002,Chic Hair Studio,Boutique,Department Store,Colour Riche Lipstick Line,1,497,3.4,Good,2027-02-18
+LOR-0003,Radiance Beauty Bar,Retail,Department Store,Colour Riche Lipstick Line,4,444,3.8,Good,2027-03-31
+LOR-0004,Urban Cuts Salon,Boutique,Salon,Revitalift Day & Night Cream,1,537,3.8,Critical,2027-04-07
+LOR-0005,Elegance Cosmetics Store,Flagship,Pharmacy,Men Expert Grooming Line,12,394,3.4,Good,2027-05-14
+LOR-0006,Luxe Skin Clinic,Flagship,E-commerce,True Match Foundation Line,17,363,4.9,At Risk,2026-11-29
+LOR-0007,Style Avenue Salon,Flagship,E-commerce,Elvive Hyaluron Plump Serum,11,120,4.9,Good,2026-09-06
+LOR-0008,Bloom Beauty Boutique,Boutique,Pharmacy,Elvive Hyaluron Plump Serum,2,220,4.6,Good,2027-04-28
+LOR-0009,Prime Looks Studio,Flagship,Specialty Beauty,Professional Salon Color Kit,18,92,3.7,Good,2026-11-12
+LOR-0010,Velvet Touch Salon,Flagship,Specialty Beauty,Professional Salon Color Kit,8,220,4.6,Good,2027-05-25
+LOR-0011,Aura Beauty House,Boutique,E-commerce,L'Oreal Pro Partner Suite,2,406,4.9,Good,2026-11-03
+LOR-0012,Mirror Image Salon,Boutique,Pharmacy,Elvive Hyaluron Plump Serum,1,536,3.5,At Risk,2027-06-29
+LOR-0013,Rose Petal Cosmetics,Flagship,Pharmacy,Elvive Dream Lengths Treatment,7,595,4.7,Critical,2027-07-24
+LOR-0014,The Grooming Lounge,Boutique,E-commerce,True Match Foundation Line,1,20,3.4,Good,2026-12-06
+LOR-0015,Serene Spa Retail,Boutique,E-commerce,Professional Salon Color Kit,1,214,4.0,At Risk,2027-02-11
+LOR-0016,Golden Glow Beauty,Retail,Specialty Beauty,Men Expert Grooming Line,5,448,4.3,Good,2026-12-20
+LOR-0017,Trendset Hair Studio,Boutique,Pharmacy,Infallible Matte Foundation,2,486,4.4,Good,2027-02-22
+LOR-0018,Pure Bliss Salon,Flagship,Salon,Professional Salon Color Kit,18,495,4.2,Critical,2026-09-29
+LOR-0019,Crown Beauty Depot,Retail,E-commerce,Revitalift Day & Night Cream,2,181,3.6,Good,2027-04-12
+LOR-0020,Opal Skincare Store,Boutique,Department Store,Age Perfect Skincare Set,1,278,4.1,Good,2027-04-30
+LOR-0021,Nova Beauty Collective,Retail,Pharmacy,Elvive Total Repair Conditioner Line,6,144,3.4,At Risk,2027-07-26

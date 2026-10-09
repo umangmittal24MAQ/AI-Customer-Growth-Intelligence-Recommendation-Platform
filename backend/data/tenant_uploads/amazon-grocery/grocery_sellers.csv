@@ -1,0 +1,23 @@
+seller_id,store_name,subscription_tier,industry,current_product,seats,active_skus,seller_rating,account_health,renewal_date
+GRO-0000,Fresh Valley Foods,Individual,Frozen,Baby Care Range,2,3455,3.8,Good,2027-04-21
+GRO-0001,DailyBasket Grocers,Enterprise,Grocery,Snacks & Confectionery,6,3687,3.8,Good,2027-07-31
+GRO-0002,Organic Roots Co,Enterprise,Snacks,Dairy & Chilled Line,14,2633,4.4,Good,2027-02-11
+GRO-0003,Pantry Prime Seller,Enterprise,Household,Beverages Assortment,14,1475,4.3,Critical,2027-06-01
+GRO-0004,GreenLeaf Naturals,Individual,Frozen,Fresh Produce Program,2,738,3.2,Good,2026-12-25
+GRO-0005,MorningFresh Dairy,Enterprise,Beverages,Grocery Analytics Dashboard,11,3103,3.3,At Risk,2027-06-19
+GRO-0006,Snack Central Hub,Professional,Beverages,Dairy & Chilled Line,3,2321,4.7,Good,2026-09-08
+GRO-0007,PureHarvest Foods,Professional,Beverages,Dairy & Chilled Line,4,3340,4.8,At Risk,2027-03-21
+GRO-0008,QuickCart Grocery,Individual,Dairy,Fresh Produce Program,2,1455,4.3,Critical,2027-03-06
+GRO-0009,Golden Grain Traders,Enterprise,Snacks,Subscribe & Save Program,10,2905,4.0,Good,2027-05-13
+GRO-0010,NutriPick Store,Enterprise,Dairy,Bakery & Breakfast,9,2165,4.4,Good,2026-11-14
+GRO-0011,FarmDirect Supply,Professional,Snacks,Sponsored Grocery Ads,4,691,4.8,Critical,2027-04-20
+GRO-0012,Sunrise Beverages,Enterprise,Household,Snacks & Confectionery,12,1439,3.4,Critical,2026-12-17
+GRO-0013,HappyTummy Foods,Enterprise,Snacks,Fresh Produce Program,14,2762,4.2,Critical,2027-03-16
+GRO-0014,EliteGourmet Market,Individual,Beverages,Organic & Natural Line,1,1803,4.1,Good,2027-01-22
+GRO-0015,Wholesome Bites Co,Enterprise,Snacks,Snacks & Confectionery,12,1404,3.3,Good,2027-05-27
+GRO-0016,SpiceWorld Traders,Individual,Frozen,Organic & Natural Line,1,2753,4.2,At Risk,2027-02-10
+GRO-0017,FrozenDelights Seller,Individual,Organic,Grocery Pro Seller Suite,2,3293,3.8,Good,2027-04-26
+GRO-0018,PetFeast Supplies,Individual,Household,Baby Care Range,2,1612,4.3,Good,2027-05-06
+GRO-0019,BabyCare Essentials,Professional,Beverages,Everyday Staples Line,5,100,3.6,Critical,2026-11-26
+GRO-0020,CleanHome Grocers,Professional,Dairy,Grocery Analytics Dashboard,5,1485,3.2,Good,2026-12-16
+GRO-0021,Everyday Staples Co,Enterprise,Household,Grocery Pro Seller Suite,12,2924,4.0,Good,2027-05-26

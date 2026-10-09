@@ -1,0 +1,23 @@
+store_id,retailer_name,package_tier,pos_terminals,agreement_end_date,regional_rep,loyalty_signups_mtd
+BM-0000,Todd and Sons,Advanced POS,4,2027-07-25,Gloria Moore,189
+BM-0001,Singh PLC,Basic POS,30,2027-03-21,Jill Young,120
+BM-0002,Tran-Dickerson,Advanced POS,8,2027-07-23,Melissa Austin,188
+BM-0003,Ramirez and Sons,Enterprise Retail,59,2027-07-02,Andrew Wilson,183
+BM-0004,King Inc,Basic POS,27,2026-12-25,Gary Silva,97
+BM-0005,Bailey Ltd,Basic POS,56,2027-03-26,Jason Kelley,46
+BM-0006,Bailey PLC,Enterprise Retail,15,2027-06-30,Victoria Rogers,327
+BM-0007,Steele-Newman,Enterprise Retail,3,2026-08-31,Stephanie Davis,170
+BM-0008,"Hawkins, Johnson and Salinas",Basic POS,10,2027-05-22,Arthur Schmidt,105
+BM-0009,"Ball, Burke and Turner",Basic POS,55,2027-05-16,Dr. Nicholas Casey,106
+BM-0010,Crawford PLC,Enterprise Retail,15,2026-12-03,Benjamin Vargas,168
+BM-0011,Garcia LLC,Basic POS,52,2027-06-07,Thomas Clark,1
+BM-0012,"Moore, White and Brown",Advanced POS,56,2026-10-19,Carolyn White,66
+BM-0013,"Ho, Morris and Stone",Enterprise Retail,18,2026-11-03,Laura Moore,56
+BM-0014,"Walker, Houston and Burgess",Enterprise Retail,57,2026-08-19,Clifford Meyer,67
+BM-0015,"Watson, Kline and Stevens",Basic POS,24,2026-12-05,Joseph Young,301
+BM-0016,Medina Group,Advanced POS,3,2026-11-03,Angela Lee,135
+BM-0017,"Solis, Ingram and Perez",Basic POS,10,2027-03-09,Matthew Madden,269
+BM-0018,"Thomas, Smith and Anderson",Basic POS,49,2026-09-07,Jacqueline Escobar,243
+BM-0019,Anderson-Mclean,Advanced POS,51,2027-02-07,Kimberly Finley,262
+BM-0020,Butler-Little,Enterprise Retail,8,2027-03-25,Christine Romero,257
+BM-0021,Shelton PLC,Basic POS,41,2026-08-28,Shannon Marsh DDS,372

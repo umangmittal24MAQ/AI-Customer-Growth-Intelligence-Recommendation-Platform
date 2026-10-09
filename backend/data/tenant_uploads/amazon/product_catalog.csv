@@ -1,0 +1,19 @@
+product_id,product_name,category,description,price_per_seat,features
+AMZ-ADS-STARTER,Sponsored Ads Starter,Advertising,Entry-level PPC management.,199.0,Keyword Research & Target Setup|Basic Campaign Management|Monthly Performance Report|Budget Monitoring
+AMZ-ADS-PRO,Sponsored Ads Pro Management,Advertising,Full-service PPC management.,499.0,Advanced Keyword Strategy|A/B Ad Testing|Daily Bid Optimization|Weekly Reporting|Dedicated Ad Specialist
+AMZ-ADS-ENT,Advertising Enterprise Suite,Advertising,End-to-end advertising strategy.,999.0,Full PPC Strategy & Planning|Multi-Platform Campaigns|Real-Time Bid Optimization|Executive Reporting|Priority Account Manager
+AMZ-FBA-OPT,FBA Inventory Optimization,Logistics,Demand forecasting and IPI improvement.,299.0,Demand Forecasting|IPI Score Improvement|Automated Restock Alerts|Storage Cost Reduction
+AMZ-FBA-MULTI,Multi-Channel Fulfillment Pro,Logistics,Extend FBA to other channels.,449.0,FBA to External Channel Routing|Multi-Platform Order Sync|Automated Returns Management|Inventory Visibility
+AMZ-APLUS,A+ Content Creation,Brandinlinkg,Premium A+ modules and brand story pages.,899.0,Premium A+ Content Modules|Brand Story Pages|Comparison Charts|Enhanced Product Images
+AMZ-BRAND,Brand Registry Pro,Branding,Brand Registry and counterfeit protection.,299.0,Brand Registry Enrollment|Counterfeit & IP Protection|Infringement Alerts|Brand Analytics Access
+AMZ-VIDEO,Sponsored Brand Video Package,Branding,Product video production and ad launch.,599.0,Product Video Production|Sponsored Brand Video Ads|Creative Ad Strategy|Performance Tracking
+AMZ-SEO,Listing Optimization Pro,SEO,"Title, bullets, backend keywords optimized.",349.0,Title & Bullet Optimization|Backend Keyword Strategy|Competitor Gap Analysis|Search Rank Tracking
+AMZ-REVIEW,Review Velocity Program,SEO,Vine enrollment and review monitoring.,199.0,Amazon Vine Enrollment|Review Monitoring|Seller Feedback Management|Review Velocity Tracking
+AMZ-GLOBAL,Global Marketplace Expansion,Strategy,"Launch to EU, UK, JP, CA markets.",1499.0,EU & UK Market Launch|Japan & Canada Expansion|Product Localization|Compliance & Tax Support
+AMZ-ANALYTICS,Seller Analytics Dashboard,Analytics,Real-time BSR and profit analytics.,249.0,Real-Time BSR Tracking|Profit & Margin Analytics|Competitive Intelligence Dashboard|Custom Reports
+AMZ-ENT,Enterprise Seller Suite,Platform,Full-service account management.,1999.0,Dedicated Account Manager|Full-Service Account Management|Priority Support SLA|Quarterly Business Reviews|Custom Reporting
+AMZ-ADS-DISPLAY,Sponsored Display Ads,Advertising,Target shoppers on and off Amazon with display ads.,699.0,Retargeting Campaigns|Off-Amazon Audience Reach|Display Ad Creatives|Audience Segment Insights
+AMZ-FBA-LIQUID,FBA Liquidations Program,Logistics,Recover value from overstock and customer returns.,149.0,Overstock Liquidation Processing|Customer Return Recovery|Liquidation Price Optimization|Value Recovery Reports
+AMZ-STORE,Premium Brand Storefront,Branding,Custom-designed multipage storefront for your brand.,1299.0,Custom Multipage Storefront Design|Video & Rich Media Integration|Brand Storytelling Layout|Seasonal Update Service
+AMZ-VINE-PRO,Amazon Vine Pro Tier,SEO,Accelerated review generation for new product launches.,499.0,Accelerated Vine Review Generation|New Product Launch Support|Up to 30 Enrolled Units|Review Analytics Dashboard
+AMZ-B2B,Amazon Business Expansion,Strategy,"B2B pricing, volume discounts, and business customer targeting.",899.0,B2B Pricing Tiers Setup|Volume Discount Configuration|Business Customer Targeting|Procurement System Integration

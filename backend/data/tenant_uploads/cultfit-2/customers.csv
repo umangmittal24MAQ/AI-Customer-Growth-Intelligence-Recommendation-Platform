@@ -1,0 +1,51 @@
+customer_id,customer_name,industry,plan_tier,seats,renewal_date,account_manager
+SZ-STORE-0000,"Franklin, Howard and Snow",Badminton,Badminton Starter Racket,148,2027-04-01,Marcus Munoz
+SZ-STORE-0001,Michellechester Running Store,Running,Running Shoes - Entry,53,2027-04-25,Meredith Castillo DDS
+SZ-STORE-0002,Munozberg Cricket Store,Cricket,Cricket Bat - Willow Starter,52,2027-01-08,Maria Harris
+SZ-STORE-0003,"Myers, Dunn and Barker",Football,Football Boots - Firm Ground,142,2027-07-27,Hunter Castro
+SZ-STORE-0004,Reed LLC,Gym & Strength,Adjustable Dumbbell Set,106,2027-07-06,Lauren Williams
+SZ-STORE-0005,Adams and Sons,Cycling,Bike Repair Kit,45,2027-05-03,Leslie May
+SZ-STORE-0006,Emilymouth Swimming Store,Swimming,Swimsuit - Training,14,2026-12-07,Darren Bautista
+SZ-STORE-0007,Johnmouth Yoga Store,Yoga & Fitness,Yoga Mat - Standard,123,2027-06-04,Alan Richard
+SZ-STORE-0008,Schwartz and Sons,Camping & Hiking,Trekking Poles (Pair),64,2027-04-18,Steven Waller
+SZ-STORE-0009,Reevesport Team Store,Team Sportswear,Team Jersey - Standard,26,2026-12-26,Nicole Robinson
+SZ-STORE-0010,"Spears, Rodriguez and Parks",Badminton,Badminton Starter Racket,146,2026-09-17,Veronica Bernard
+SZ-STORE-0011,"Mejia, Bush and Navarro",Running,Running Shorts,63,2026-08-21,Autumn Craig
+SZ-STORE-0012,Lake Thomas Cricket Store,Cricket,Cricket Bat - Willow Starter,32,2027-01-01,Ms. Ashley Cooper DDS
+SZ-STORE-0013,Sanchez and Sons,Football,Football Boots - Firm Ground,9,2026-08-06,Linda Decker
+SZ-STORE-0014,Estradaborough Gym Store,Gym & Strength,Adjustable Dumbbell Set,18,2027-08-03,Angela Holland
+SZ-STORE-0015,Higgins Group,Cycling,Road Bike - Entry,23,2026-11-15,Kathleen Baxter
+SZ-STORE-0016,Baileyside Swimming Store,Swimming,Swim Goggles,91,2027-01-23,Diane Reynolds
+SZ-STORE-0017,Freeman LLC,Yoga & Fitness,Yoga Mat - Standard,109,2026-10-05,Tony Miller
+SZ-STORE-0018,South Davidville Camping Store,Camping & Hiking,Hiking Boots - Entry,30,2027-04-01,Lisa Carr
+SZ-STORE-0019,West Juan Team Store,Team Sportswear,Team Shorts,148,2027-04-23,Jeanette King
+SZ-STORE-0020,Batesland Badminton Store,Badminton,Badminton Starter Racket,38,2027-02-18,Patrick Porter
+SZ-STORE-0021,"Sanders, Brewer and Miller",Running,Running Shoes - Entry,112,2026-08-06,Michael Ellis
+SZ-STORE-0022,"Hanna, Johnson and Parker",Cricket,Cricket Bat - Willow Starter,82,2026-08-16,Frank Howard
+SZ-STORE-0023,Young Inc,Football,Football Boots - Firm Ground,105,2027-06-10,Jennifer Jimenez PhD
+SZ-STORE-0024,New James Gym Store,Gym & Strength,Adjustable Dumbbell Set,30,2026-10-19,Phyllis Rice
+SZ-STORE-0025,Johnsontown Cycling Store,Cycling,Road Bike - Entry,71,2027-06-14,Karen Simpson
+SZ-STORE-0026,Mitchellmouth Swimming Store,Swimming,Swimsuit - Training,80,2026-09-13,Tammy Smith
+SZ-STORE-0027,Rossbury Yoga Store,Yoga & Fitness,Yoga Mat - Standard,67,2027-02-10,Lorraine Dunn
+SZ-STORE-0028,South Brandi Camping Store,Camping & Hiking,Hiking Boots - Entry,121,2027-06-02,Kathryn Smith
+SZ-STORE-0029,Mccarthy-Bartlett,Team Sportswear,Team Jersey - Standard,39,2026-11-07,Thomas Anderson
+SZ-STORE-0030,"Haynes, Martin and Phillips",Badminton,Badminton Starter Racket,84,2027-06-14,Susan Swanson
+SZ-STORE-0031,North Kayla Running Store,Running,Running Shoes - Entry,53,2027-06-24,James Flynn
+SZ-STORE-0032,Jacobson Inc,Cricket,Cricket Bat - Willow Starter,104,2027-06-11,Ronald Bryant
+SZ-STORE-0033,Lake David Football Store,Football,Football Boots - Firm Ground,17,2026-08-25,Micheal Campbell
+SZ-STORE-0034,Sandovalchester Gym Store,Gym & Strength,Adjustable Dumbbell Set,70,2027-08-01,Carlos Duncan
+SZ-STORE-0035,Smith Group,Cycling,Road Bike - Entry,112,2027-06-07,Brooke Anderson
+SZ-STORE-0036,Port Joannberg Swimming Store,Swimming,Swimsuit - Training,138,2027-08-09,Amber Lewis
+SZ-STORE-0037,Hawkinsport Yoga Store,Yoga & Fitness,Yoga Mat - Standard,63,2027-07-06,Bonnie Perez
+SZ-STORE-0038,Websterborough Camping Store,Camping & Hiking,Trekking Poles (Pair),23,2026-11-18,Cynthia Porter
+SZ-STORE-0039,East Edward Team Store,Team Sportswear,Team Jersey - Standard,73,2026-12-11,Leslie Jackson
+SZ-STORE-0040,Edwardland Badminton Store,Badminton,Badminton Starter Racket,50,2027-05-04,Jamie Sawyer
+SZ-STORE-0041,Roberttown Running Store,Running,Running Shoes - Entry,38,2026-10-15,Cindy Jordan
+SZ-STORE-0042,Cortez and Sons,Cricket,Cricket Batting Gloves,138,2026-10-16,Paul Carter
+SZ-STORE-0043,Port Gary Football Store,Football,Football Boots - Firm Ground,9,2027-02-05,Natasha Schmidt
+SZ-STORE-0044,"Wright, Richard and Thomas",Gym & Strength,Adjustable Dumbbell Set,10,2026-09-13,Darlene Edwards
+SZ-STORE-0045,New Joshuafort Cycling Store,Cycling,Road Bike - Entry,84,2026-09-12,Audrey Gross
+SZ-STORE-0046,Peterview Swimming Store,Swimming,Swimsuit - Training,144,2026-08-28,Dr. Matthew Carlson
+SZ-STORE-0047,Vasquez-Doyle,Yoga & Fitness,Yoga Strap,38,2027-01-27,Christopher Garcia
+SZ-STORE-0048,"Butler, Mckenzie and Johnson",Camping & Hiking,Hiking Boots - Entry,126,2027-03-07,Scott Mcfarland
+SZ-STORE-0049,Eaton Group,Team Sportswear,Team Jersey - Standard,132,2027-06-21,Michele Brown

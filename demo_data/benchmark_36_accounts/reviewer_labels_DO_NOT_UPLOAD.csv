@@ -1,0 +1,37 @@
+customer_id,customer_name,scenario,reviewer_expected_action,reviewer_reason
+DEMO-001,Northstar Data Labs,strong_growth,Up to Growth,Usage and seats growing
+DEMO-002,Atlas Cloudworks,strong_growth,Up to Scale,Monthly usage climbing
+DEMO-003,BluePeak Analytics,strong_growth,Up to Growth,Growing usage
+DEMO-004,Monarch Automation,strong_growth,Up to Scale,API traffic expanding
+DEMO-005,Meridian Software,strong_growth,Up to Enterprise,High engagement
+DEMO-006,Clearview Technologies,strong_growth,Up to Growth,Fast team growth
+DEMO-007,Vela Infrastructure,support_risk,Hold and retain,Unresolved billing dispute near renewal
+DEMO-008,Summit Retail Systems,declining,Hold and retain,Declining feature adoption
+DEMO-009,Orbit Digital,declining,Hold and retain,Engagement drop
+DEMO-010,Cedarline Platforms,thin_evidence,Request more data,Missing usage history
+DEMO-011,Pioneer Tech Studio,steady,No strong opportunity,"Flat usage, renewal far away"
+DEMO-012,Harborstone Apps,steady,No strong opportunity,"Flat usage, renewal far away"
+DEMO-013,Lattice Data Systems,strong_growth,Up to Growth,High activity growth
+DEMO-014,Quanta Stack,strong_growth,Up to Scale,Large API expansion
+DEMO-015,Vertex Operations,strong_growth,Up to Enterprise,Consistent utilization
+DEMO-016,Nexa Compute,strong_growth,Up to Growth,Growing organization
+DEMO-017,SignalBridge,strong_growth,Up to Scale,Feature adoption up
+DEMO-018,Brightline AI,strong_growth,Up to Scale,Active seats increasing
+DEMO-019,Ember Security,support_risk,Hold and retain,Security escalation unresolved
+DEMO-020,Horizon Code,declining,Hold and retain,Loss of engagement
+DEMO-021,NovaScale Software,thin_evidence,Request more data,Usage data missing
+DEMO-022,Kiteworks Labs,steady,No strong opportunity,"Highest plan, stable"
+DEMO-023,Acorn Digital,steady,No strong opportunity,Stable account
+DEMO-024,Ardent Cloud,steady,No strong opportunity,Stable with distant renewal
+DEMO-025,UnionLake AI,strong_growth,Up to Growth,Rapid growth
+DEMO-026,FluxWare,strong_growth,Up to Scale,API increase
+DEMO-027,OriginFlow Tech,strong_growth,Up to Enterprise,Growth and renew soon
+DEMO-028,Highland Systems,strong_growth,Up to Growth,Adoption growth
+DEMO-029,Anchorpoint,declining,Hold and retain,Adoption declined
+DEMO-030,Shoreline Cloud,support_risk,Hold and retain,Renewal and billing dispute
+DEMO-031,Marble Networks,steady,No strong opportunity,No eligible core upgrade
+DEMO-032,Sagebyte Products,thin_evidence,Request more data,No recent usage samples
+DEMO-033,Boreal Data,strong_growth,Up to Enterprise,Engagement accelerating
+DEMO-034,Prism Applications,steady,No strong opportunity,No action trigger
+DEMO-035,Eclipse Cloud,strong_growth,Up to Growth,Growing usage
+DEMO-036,TwinPeak Systems,declining,Hold and retain,Severe usage decay
