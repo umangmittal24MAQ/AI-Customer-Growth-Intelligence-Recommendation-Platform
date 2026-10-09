@@ -30,6 +30,20 @@ The IndiaAI endpoint may return a populated reasoning field but blank final `con
 
 See `INDIAAI_SETUP.md` for more detail. This is a local demo, not a production security audit. Live performance must be benchmarked with an authorized account.
 
-## Canonical GitHub repository
+## GitHub and updates
 
-The intended canonical source is <https://github.com/umangmittal24MAQ/AI-Customer-Growth-Intelligence-Recommendation-Platform>. The linked repository was **empty at the time this distribution was prepared**. To publish the complete source from a Windows machine, open PowerShell in the extracted `Traject` folder, run `./PUBLISH_TO_GITHUB.ps1`, review staged files, then run the printed commit and push commands. GitHub authentication is required. **Never publish private keys, internal data or company code without authorization.**
+Canonical source: <https://github.com/umangmittal24MAQ/AI-Customer-Growth-Intelligence-Recommendation-Platform> (`main`).
+
+To get the latest code in an existing checkout:
+
+```powershell
+git pull origin main
+```
+
+For a fresh checkout:
+
+```powershell
+git clone https://github.com/umangmittal24MAQ/AI-Customer-Growth-Intelligence-Recommendation-Platform.git
+```
+
+Then create `backend/.env` from `.env.example` on your own machine. The project uses **IndiaAI Qwen only** for LLM inference; `openai` is the client SDK for the OpenAI-compatible MAQ gateway, not a second model provider. Never commit private gateway keys, internal data, runtime databases, or company code without permission.

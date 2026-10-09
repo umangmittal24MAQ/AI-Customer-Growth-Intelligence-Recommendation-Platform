@@ -20,7 +20,7 @@ import json
 import zlib
 from datetime import date
 
-from fastapi import APIRouter, HTTPException, Query, Depends, Depends
+from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel
 
 from app import db

@@ -1,7 +1,6 @@
 fastapi
 python-multipart
 uvicorn[standard]
-IndiaAI>=0.11
 pandas
 openpyxl
 faker

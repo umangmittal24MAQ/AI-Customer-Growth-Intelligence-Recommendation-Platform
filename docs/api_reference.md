@@ -1,115 +1,46 @@
-# API Reference
+# Traject API Reference
 
-Base URL: `http://localhost:5000/api`
+**Local server:** `http://127.0.0.1:5001` (or your configured host/port). Interactive endpoint schemas: [Swagger UI](http://127.0.0.1:5001/docs).
 
-All responses are JSON. CORS is enabled for the Vite dev server.
+The React frontend uses `/api/*`; these routes generally require the tenant authentication credential returned by `POST /auth/login`. Use the OpenAPI documentation to check the exact request body and auth header for your version.
 
----
+## Authentication
 
-## `GET /customers`
-List all customers with churn segment + opportunity summary.
+| Method | Route | Purpose |
+|---|---|---|
+| POST | `/auth/signup` | Create a tenant account; can initialize showcase data |
+| POST | `/auth/login` | Sign in and receive tenant-scoped credentials |
 
-**Response**
-```json
-[
-  {
-    "customer_id": 1,
-    "company_name": "Acme Corp",
-    "industry": "SaaS",
-    "plan_tier": "Pro",
-    "mrr": 1450.0,
-    "region": "EMEA",
-    "contract_renewal_date": "2026-05-01",
-    "churn_score": 32.4,
-    "churn_segment": "LOW",
-    "total_opportunity": 19200.0,
-    "recommendation_count": 3
-  }
-]
-```
+## Frontend-facing endpoints
 
----
+| Method | Route | Purpose |
+|---|---|---|
+| GET | `/api/data-status` | Ingested data counts and gaps |
+| GET | `/api/catalog` | Tenant-scoped catalog |
+| GET | `/api/customers` | Customer list |
+| GET | `/api/customers/{customer_id}` | Customer detail |
+| GET | `/api/customers/{customer_id}/analysis` | Customer analytics, reasoning and insights |
+| POST | `/api/generate-recommendations` | Analyze all accounts, or provide `customer_id` query parameter for one |
+| GET | `/api/recommendations/{customer_id}` | Recommendation details |
+| POST | `/api/recommendations/{rec_id}/feedback` | Record feedback |
+| GET | `/api/analytics/summary` | Aggregate tenant analytics |
+| POST | `/api/chat` | Chat with account context |
+| GET | `/api/chat/sessions` | List chat sessions |
+| GET | `/api/chat/sessions/{conversation_id}` | Chat session history |
+| DELETE | `/api/chat/sessions/{conversation_id}` | Delete a chat session |
+| POST | `/api/customers/{customer_id}/send-recommendation-email` | Send an opportunity email |
+| POST | `/api/customers/{customer_id}/schedule-meeting` | Arrange a follow-up |
+| POST | `/api/catalog/products` | Add catalog entry |
+| PATCH | `/api/catalog/products/{product_id}` | Update catalog entry |
+| DELETE | `/api/catalog/products/{product_id}` | Remove catalog entry |
+| GET | `/api/tenant/feature-weights` | Inspect scoring feature weights |
+| POST | `/api/tenant/feature-weights` | Update scoring feature weights |
 
-## `GET /customers/:id`
-Full detail: customer, usage/support signals, churn breakdown, recommendations.
+Additional operations (batch email, tenant configuration, calibration, traces, embeddings) are available in `backend/app/main.py` and `backend/app/web_api.py`.
 
-**Response**
-```json
-{
-  "customer": { "customer_id": 1, "company_name": "Acme Corp", "...": "..." },
-  "usage_signals": { "monthly_active_users": 120, "feature_adoption_pct": 82.0, "...": "..." },
-  "support_signals": { "open_tickets": 1, "csat_score": 4.6, "nps_score": 70 },
-  "churn": {
-    "score": 32.4,
-    "segment": "LOW",
-    "factor_breakdown": { "usage": 4.5, "adoption": 3.6, "support": 2.0, "sentiment": 3.1, "recency": 1.5 },
-    "explanation": "Churn score 32.4/100 (LOW)..."
-  },
-  "recommendations": [
-    {
-      "id": 12,
-      "title": "Upsell — Enterprise Plan Upgrade",
-      "type": "upsell",
-      "revenue_opportunity": 14400.0,
-      "confidence": 0.65,
-      "justification": "Healthy account...",
-      "escalation_flag": false,
-      "status": "pending"
-    }
-  ]
-}
-```
+## Data and safety behavior
 
----
-
-## `POST /generate-recommendations`
-Runs the 5-agent pipeline. Optional `?customer_id=<id>` to run for one customer;
-omit to run for all.
-
-**Response**
-```json
-{
-  "processed": 70,
-  "results": [
-    { "customer_id": 1, "segment": "LOW", "churn_score": 32.4, "recommendation_count": 3 }
-  ]
-}
-```
-
----
-
-## `GET /recommendations/:customer_id`
-Fetch stored recommendations for a customer, ranked by expected value.
-
----
-
-## `GET /analytics/summary`
-Churn distribution, total revenue opportunity, top recommendation types, top
-customers, and the conversion funnel.
-
-**Response**
-```json
-{
-  "churn_distribution": [ { "segment": "HIGH", "count": 15 } ],
-  "total_revenue_opportunity": 812400.0,
-  "top_recommendation_types": [ { "type": "cross_sell", "count": 40, "revenue": 210000.0 } ],
-  "top_customers": [ { "customer_id": 3, "company_name": "Globex", "segment": "LOW", "opportunity": 42000.0 } ],
-  "conversion_funnel": [ { "segment": "LOW", "status": "accepted", "count": 5 } ]
-}
-```
-
----
-
-## `POST /recommendations/:id/feedback`
-Mark a recommendation accepted/rejected.
-
-**Request**
-```json
-{ "status": "accepted" }
-```
-`status` ∈ `pending | accepted | rejected`.
-
-**Response**
-```json
-{ "id": 12, "status": "accepted" }
-```
+- Generate-recommendations requires tenant data and an **uploaded product catalog**; seeded placeholder catalogs are not sufficient.
+- The pipeline may return **no recommendation** if evidence is missing, churn risk is high, model output is invalid, or the Critic vetoes a proposed product.
+- Only the MAQ-hosted IndiaAI Qwen model is configured for AI inference; a deterministic, conservative fallback operates when unavailable.
+- The full response contracts are maintained in the FastAPI Pydantic schemas and live OpenAPI spec rather than duplicated as static sample JSON here.

@@ -1,45 +1,33 @@
-# Churn Scoring Logic
+# Churn Scoring — Current Implementation
 
-The churn risk score is a **transparent, rule-based** computation — not an LLM
-black box. Every factor is normalized to a `0–1` risk value, multiplied by a
-documented weight, and summed into a `0–100` score.
+Traject shows a **deterministic 0–100 churn score** for customer analytics and can also show a **risk label determined by the recommendation/Critic workflow**. The displayed score may be clamped into the selected risk band's numeric range to prevent a contradictory label and number.
 
-Source of truth: [`backend/config.py`](../backend/config.py) (`CHURN_WEIGHTS`,
-thresholds) and [`backend/agents/churn_scoring_agent.py`](../backend/agents/churn_scoring_agent.py).
+**Implementation references:** `backend/app/web_api.py` (`_churn`, `_reconcile_churn_score`) and `backend/app/prefilter.py` (`estimate_churn_risk`, `passes_prefilter`).
 
-## Factors and normalization
+## Customer analytics score
 
-| Factor | Signal(s) | Risk = 1 (worst) when… | Weight |
-|---|---|---|---|
-| `usage` | `login_frequency_per_week` | ~0 logins/week (10+/wk is healthy) | 0.25 |
-| `adoption` | `feature_adoption_pct` | 0% features adopted | 0.20 |
-| `support` | `open_tickets`, `avg_resolution_time_days` | ≥12 open tickets / ≥10-day resolution | 0.20 |
-| `sentiment` | `csat_score` (1–5), `nps_score` (−100..100) | CSAT 1 / NPS −100 | 0.20 |
-| `recency` | `days_since_last_login` | ≥30 days since last login | 0.15 |
+The `_churn` function uses four additive components:
 
-Weights sum to `1.0`.
+| Signal | Formula / treatment | Maximum |
+|---|---|---:|
+| Declining usage | `clamp(-usage_trend_pct * 1.4, 0, 45)` | 45 |
+| Unresolved support tickets | `min(open_ticket_count * 7 + (10 if open_billing_issue else 0), 30)` | 30 |
+| Renewal proximity | 18 points within 30 days; 11 within 60; 6 within 90 | 18 |
+| Low engagement | `clamp((40 - adoption_pct) * 0.5, 0, 20)` | 20 |
 
-### Formulas
-
-```
-usage_risk     = clamp(1 - login_frequency_per_week / 10)
-adoption_risk  = clamp(1 - feature_adoption_pct / 100)
-support_risk   = clamp(0.6 * (open_tickets / 12) + 0.4 * (avg_resolution_days / 10))
-sentiment_risk = clamp(0.5 * (1 - (csat - 1)/4) + 0.5 * (1 - (nps + 100)/200))
-recency_risk   = clamp(days_since_last_login / 30)
-
-score = 100 * Σ (factor_risk * weight)
+```text
+score = min(100, usage + support + renewal + engagement)
+LOW:      0–33
+MEDIUM:  34–66
+HIGH:    67–100
 ```
 
-## Segments
+This is the **dashboard score**, not a claim that the LLM mathematically computed churn. When the model's risk label differs from the deterministic result, `_reconcile_churn_score` adjusts the displayed score into the model label's band. The underlying numeric factors are still calculated locally.
 
-| Segment | Score | Strategy |
-|---|---|---|
-| **HIGH** | ≥ 70 | Retention only — discounts, save offers, CSM escalation. **Never upsell.** |
-| **MEDIUM** | 40–69 | Balanced — feature adoption nudges + light cross-sell. |
-| **LOW** | < 40 | Upsell / cross-sell — plan upgrades, add-ons, complementary products. |
+## Operational decision gates
 
-Thresholds live in `config.CHURN_HIGH_THRESHOLD` (70) and
-`config.CHURN_MEDIUM_THRESHOLD` (40). The segment gates everything downstream:
-the Catalog Retrieval Agent filters eligible items by segment, so a HIGH-risk
-customer physically cannot be shown upgrade-only items.
+- `passes_prefilter` shortlists accounts on relevant growth, storage utilization, recent qualifying tickets, or upcoming renewal; thresholds may be tenant-calibrated.
+- `estimate_churn_risk` provides a separate deterministic risk assessment for no-model and rule-based paths.
+- The agent workflow validates candidate products and applies hard gates: high churn, insufficient evidence, failed recommendation, or Critic veto **must not generate an approved upsell**.
+
+For the complete business conditions, see `backend/app/agents/workflow.py`, `backend/app/trust.py`, and tests in `backend/tests/test_trust_gates.py`.

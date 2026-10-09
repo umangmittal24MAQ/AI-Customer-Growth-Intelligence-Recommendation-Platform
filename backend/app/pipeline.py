@@ -88,7 +88,7 @@ def generate_recommendations(
         else:
             not_shortlisted.append((customer, usage_rows, tickets))
 
-    # Provider agnostic: the same multi-agent workflow works with IndiaAI or IndiaAI.
+    # Use only the configured IndiaAI Qwen gateway for multi-agent analysis.
     from app.indiaai_client import is_configured, make_client
     from app.config import LLM_PROVIDER
     llm_ready = False

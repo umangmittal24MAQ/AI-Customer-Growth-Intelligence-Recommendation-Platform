@@ -14,8 +14,7 @@ import asyncio
 
 import pytest
 
-# The agent builders import the optional 'indiaai' package. Skip this
-# whole module cleanly if it isn't installed, so the rest of the suite still runs.
+# Live-provider cases are marked with @requires_indiaai and skip without credentials.
 
 
 from app.agents.retention_agent import build_retention_agent
