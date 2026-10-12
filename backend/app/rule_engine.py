@@ -3,7 +3,7 @@ Rule-Based Reasoning Agent — the default recommendation engine. Fully
 deterministic, zero cost, no API key required. This is what makes the
 product work immediately for anyone who downloads it.
 
-The LLM path (llm_engine.py) is an OPTIONAL upgrade a tenant can enable for
+The live model path (pipeline.py and agents/workflow.py) is OPTIONAL for
 richer, more nuanced rationale text — never a hard requirement.
 """
 

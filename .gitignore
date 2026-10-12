@@ -29,3 +29,13 @@ Thumbs.db
 *.db-wal
 backend/logs/
 frontend/coverage/
+
+# Never accidentally add newly imported tenant/customer data to a public repo.
+# Existing tracked synthetic tenant fixtures are unchanged by this rule.
+/backend/data/tenant_uploads/
+
+# Local artifacts and credentials
+*.log
+*.bak
+.coverage
+coverage.xml

@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app.agents.signal_agent import build_signal_agent
 from app.agents.recommendation_agent import build_recommendation_agent
@@ -12,9 +12,8 @@ from app.config import LLM_MODEL
 from app.models import SignalVerdict, CandidateProducts, RecommendationDraft, CriticVerdict, Product, RetentionAction
 from app.trust import eligible_catalog, source_evidence, compact_signals, evidence_supports_expansion
 from app.agents.clients import build_retention_fallback
-from types import SimpleNamespace
-from app.prefilter import estimate_churn_risk
-from app.vector_engine import find_similar_products
+# No connection or agent globals should be initialized here.
+# Product retrieval is performed with deterministic eligibility gates.
 # Catalog pitch selection lives in the dependency-free app.agents.pitch module
 # so the batch pipeline can reuse it without importing the agent stack. Aliased
 # to the private names this module has always used at the call sites below.
@@ -88,7 +87,6 @@ async def _run_retention_agent(retention_agent, customer, reason_code, churn_rea
 
 
 async def run_customer(customer_signal_request: dict, customer: dict, catalog: list[dict], agents: dict, tenant_id: str = "default") -> dict:
-    signal_agent = agents.get("signal_agent")
     recommendation_agent = agents["recommendation_agent"]
     critic_agent = agents["critic_agent"]
 
@@ -119,7 +117,7 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
             "rationale": det_reason if reason_code == "high_churn_gate" else
                 "No credible expansion trigger was found in the current account data.",
             "revenue_score": 0, "confidence": 0, "estimated_deal_value": 0,
-            "renewal_date": str(customer.get("renewal_date") or ""), "generated_at": datetime.utcnow().isoformat(),
+            "renewal_date": str(customer.get("renewal_date") or ""), "generated_at": datetime.now(timezone.utc).isoformat(),
             "agent_trace": {"agents_run": ["deterministic_screen"], "outcome": "review_required",
                             "decision_status": "review_required", "reason_code": reason_code,
                             "evidence": evidence, "fallbacks_used": []},
@@ -137,7 +135,7 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
             "churn_risk": det_risk, "churn_reason": det_reason, "segment": "not_eligible",
             "rationale": "Catalog contains no evidence-supported upgrade or cross-sell for this account.",
             "revenue_score": 0, "confidence": 0, "estimated_deal_value": 0,
-            "renewal_date": str(customer.get("renewal_date") or ""), "generated_at": datetime.utcnow().isoformat(),
+            "renewal_date": str(customer.get("renewal_date") or ""), "generated_at": datetime.now(timezone.utc).isoformat(),
             "agent_trace": {"agents_run": ["deterministic_screen", "eligible_catalog"],
                             "outcome": "no_opportunity", "decision_status": "no_opportunity",
                             "reason_code": retrieval_method, "evidence": evidence,
@@ -321,7 +319,7 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
     final["customer_id"] = customer["customer_id"]
     final["customer_name"] = customer["customer_name"]
     final["renewal_date"] = customer["renewal_date"].isoformat() if hasattr(customer["renewal_date"], "isoformat") else customer["renewal_date"]
-    final["generated_at"] = datetime.utcnow().isoformat()
+    final["generated_at"] = datetime.now(timezone.utc).isoformat()
 
     final["agent_trace"] = {
         "agents_run": ["deterministic_screen", "eligible_catalog", "recommendation"] + (["critic"] if draft.product else []),

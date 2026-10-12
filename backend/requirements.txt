@@ -1,19 +1,4 @@
-fastapi
-python-multipart
-uvicorn[standard]
-pandas
-openpyxl
-faker
-numpy
-sentence-transformers
-apscheduler
-python-dotenv
-pydantic
-requests
-pytest
-google-api-python-client
-google-auth
-google-auth-oauthlib
-
-# OpenAI-compatible client for the MAQ-hosted IndiaAI endpoint
-openai>=1.0,<3
+# Convenience installation: core API plus optional semantic search / mail / calendar.
+# For most local demos use: pip install -r requirements-core.txt
+-r requirements-core.txt
+-r requirements-optional.txt

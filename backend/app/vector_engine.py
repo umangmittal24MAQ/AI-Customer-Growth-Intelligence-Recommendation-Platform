@@ -1,6 +1,6 @@
 """
 Vector Search Engine — OPTIONAL upgrade for product matching, same tier as
-llm_engine.py: a tenant opts in explicitly (tenant_config.use_vector_search),
+the active pipeline: a tenant opts in explicitly (tenant_config.use_vector_search),
 never a hard requirement to run the agent at all.
 
 Why this exists: rule_engine.py's default keyword matching

@@ -105,33 +105,27 @@ class _IndiaAIAgentBuilder:
         return IndiaAIStructuredAgent(self._client, self._model, name, instructions, response_model)
 
 
-_mini_client = None
-_strong_client = None
+_shared_builder = None
 
 
 def get_mini_client():
-    global _mini_client
-    if _mini_client is None:
-        _mini_client = _IndiaAIAgentBuilder(make_client(asynchronous=True), LLM_MODEL)
-    return _mini_client
+    """Legacy tier name; both roles use the same configured Qwen deployment."""
+    global _shared_builder
+    if _shared_builder is None:
+        _shared_builder = _IndiaAIAgentBuilder(make_client(asynchronous=True), LLM_MODEL)
+    return _shared_builder
 
 
 def get_strong_client():
-    global _strong_client
-    if _strong_client is None:
-        _strong_client = _IndiaAIAgentBuilder(make_client(asynchronous=True), LLM_MODEL)
-    return _strong_client
+    """Use the same connection pool while keeping the two agent contracts."""
+    return get_mini_client()
 
 
 async def close_clients():
-    global _mini_client, _strong_client
-    closed = set()
-    for builder in (_mini_client, _strong_client):
-        if builder is not None and id(builder._client) not in closed:
-            closed.add(id(builder._client))
-            await builder._client.close()
-    _mini_client = None
-    _strong_client = None
+    global _shared_builder
+    builder, _shared_builder = _shared_builder, None
+    if builder is not None:
+        await builder._client.close()
 
 
 def wrap_agent(agent, fallback_factory, name="agent"):

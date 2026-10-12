@@ -343,7 +343,7 @@ def _estimate_deal_value(rec: dict, customer: dict, catalog: list[dict]) -> floa
         return 0.0
     # Match by id or name -- rule_engine.py sets this to product_name, but
     # keep this tolerant in case that ever changes (see same fix in
-    # llm_engine.py, which has to handle the LLM returning either).
+    # the active multi-agent workflow, which handles model output and abstention).
     product = next(
         (p for p in catalog if p["product_id"] == recommended or p["product_name"] == recommended),
         None,

@@ -1,4 +1,6 @@
 import json
+import os
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,14 +19,25 @@ from app import accounts
 
 log = get_logger(__name__)
 
-app = FastAPI(title="Traject")
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    """Initialize tenant storage once and release pooled AI clients on shutdown."""
+    _log_startup()
+    try:
+        yield
+    finally:
+        from app.agents.clients import close_clients
+        await close_clients()
+
+
+app = FastAPI(title="Traject", lifespan=lifespan)
 
 # The React frontend is served from a separate dev server (Vite on :5173) and
 # proxies /api to this app. Allow cross-origin calls so the app also works if
 # the frontend is pointed straight at the backend instead of through the proxy.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[origin.strip() for origin in __import__("os").getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",") if origin.strip()],
+    allow_origins=[origin.strip() for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",") if origin.strip()],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,7 +47,6 @@ app.add_middleware(
 app.include_router(frontend_router)
 
 
-@app.on_event("startup")
 def _log_startup():
     # Creates every table if it doesn't exist yet, and the DB file itself
     # if it doesn't exist -- data itself is loaded directly into the SQL
