@@ -334,7 +334,7 @@ def get_tenant_profile(tenant_id: str, authorized_tenant: str = Depends(get_curr
 
 @app.post("/tenant/{tenant_id}/recalibrate")
 def trigger_recalibration(tenant_id: str, authorized_tenant: str = Depends(get_current_tenant)):
-    """Manual trigger for feedback-based recalibration -- normally runs weekly via the scheduler."""
+    """Manual trigger for feedback-based recalibration."""
     if tenant_id != authorized_tenant:
         raise HTTPException(status_code=403, detail="API key does not match requested tenant_id")
     profile = recalibrate_from_feedback(tenant_id)

@@ -1,4 +1,5 @@
 import json
+from app import db
 from datetime import datetime, timezone
 
 from app.agents.signal_agent import build_signal_agent
@@ -151,6 +152,7 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
         **compact_signals(customer_signal_request),
         "signal_verdict": signal_result.model_dump(),
         "candidate_products": [p.model_dump() for p in candidates.products],
+        "candidate_product_metadata": eligible,
     }
     recommendation_response = await recommendation_agent.run(_to_message(recommendation_input))
     draft: RecommendationDraft = recommendation_response.value
@@ -191,6 +193,7 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
             "recommended_product": draft.product,
             "segment": draft.segment,
             "churn_risk": draft.churn_risk,
+            "product_metadata": next((p for p in eligible if p["product_name"] == draft.product), None),
         },
     }
     if draft.product:
@@ -235,6 +238,7 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
         customer_signal_request.get("tickets") or [],
     )
     final["churn_risk"] = det_risk
+    final["churn_reason"] = det_reason
     
     # Do not let critic override the deterministic churn risk
     # (Previously: if critic.revised_churn_risk is not None: final["churn_risk"] = critic.revised_churn_risk)
@@ -244,8 +248,6 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
     # supplied one -- it's the more independent, second-opinion read of
     # the account, and (unlike veto_reason) it's guaranteed not to name a
     # product that might get swapped out for a fallback pitch below.
-    if critic.churn_risk_reason:
-        final["churn_reason"] = critic.churn_risk_reason
     if not critic.approved and final["recommended_product"]:
         log.info("[%s] Critic VETOED the recommendation -- product removed.", customer_id)
         final["recommended_product"] = None
@@ -308,7 +310,7 @@ async def run_customer(customer_signal_request: dict, customer: dict, catalog: l
     )
 
     # Step 5 - Deal Value (plain math, not an LLM agent)
-    deal_value = compute_deal_value(final, customer, catalog)
+    deal_value = compute_deal_value(final, customer, catalog, db.get_tenant_config(tenant_id).get("revenue_model", "recurring"))
     final["estimated_deal_value"] = deal_value.estimated_value
     log.info(
         "[%s] Deal value: $%s anomaly=%s",

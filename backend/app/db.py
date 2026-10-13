@@ -16,6 +16,7 @@ import os
 import shutil
 import sqlite3
 import time
+import uuid
 from datetime import date, datetime, timedelta
 from app.config import DB_PATH
 
@@ -116,7 +117,7 @@ def init_db() -> None:
         if "source" not in catalog_cols:
             # Existing rows predate this column and were, in practice, all
             # written by the demo auto-seed fallback (app/onboarding.py) or
-            # scripts/generate_dynamic_fields_report.py-style manual seeding --
+            # manual field seeding --
             # real per-tenant uploads go through data_ingestion.py, which now
             # tags 'upload' explicitly going forward. Backfill existing rows
             # as 'demo_seed' (the more conservative assumption) so tenants who
@@ -174,7 +175,8 @@ def save_chat_session(session: dict) -> None:
                first_message = COALESCE(excluded.first_message, chat_sessions.first_message),
                last_customer_id = excluded.last_customer_id,
                last_customer_name = excluded.last_customer_name,
-               updated_at = datetime('now')""",
+               updated_at = datetime('now')
+           WHERE chat_sessions.tenant_id = excluded.tenant_id""",
         (
             session["conversation_id"],
             session["tenant_id"],
@@ -536,9 +538,9 @@ def _tenant_dataset_by_concepts(tenant_id: str, *concepts: str) -> dict | None:
 # dataset -- kept here so schema_discovery.CONCEPTS stays the single source
 # of truth for the vocabulary itself, this just groups it by "which legacy
 # adapter shape does this concept feed".
-_USAGE_CONCEPTS = ("active_users", "storage_used_gb", "storage_limit_gb", "usage_trend_metric")
-_TICKET_CONCEPTS = ("ticket_severity", "ticket_created_at", "ticket_resolved")
-_CATALOG_CONCEPTS = ("product_id", "product_name", "price_per_seat", "product_tier_level")
+_USAGE_CONCEPTS = ("active_users", "usage_date", "storage_used_gb", "storage_limit_gb", "usage_trend_metric")
+_TICKET_CONCEPTS = ("ticket_severity", "ticket_created_at", "ticket_resolved", "ticket_category", "ticket_subject")
+_CATALOG_CONCEPTS = ("product_id", "product_name", "price_per_seat", "product_tier_level", "product_category")
 
 
 def _find_tenant_dataset(tenant_id: str, concepts: tuple[str, ...], *label_keywords: str) -> dict | None:
@@ -556,11 +558,9 @@ def _concept_column_on_dataset(tenant_id: str, dataset_id: int, concept: str, ca
     so e.g. a "seats" concept mapped on the customers dataset never gets
     misapplied to a usage-dataset row. Cached per concept per call.
 
-    When multiple columns share the same concept (e.g. several columns all
-    mapped to `usage_trend_metric`), we prefer the column whose name
-    contains primary business-volume keywords (gmv, revenue, sales, mrr,
-    arr, spend) since that is the most meaningful trend signal for churn
-    detection. Falls back to the first mapped column if none match.
+    When multiple columns share the same concept, prefer a normalized
+    health/adoption signal over a raw activity counter. Percentage changes
+    in counters such as API calls are otherwise dominated by account size.
     """
     cache_key = f"{dataset_id}:{concept}"
     if cache_key not in cache:
@@ -577,13 +577,12 @@ def _concept_column_on_dataset(tenant_id: str, dataset_id: int, concept: str, ca
         elif len(rows) == 1:
             cache[cache_key] = rows[0]
         else:
-            # Prefer primary revenue/volume metric column for trend accuracy
-            _VOLUME_KEYWORDS = ("gmv", "revenue", "sales", "mrr", "arr", "spend", "transaction", "order_value")
-            preferred = next(
-                (col for col in rows if any(kw in col.lower() for kw in _VOLUME_KEYWORDS)),
-                rows[0]
-            )
-            cache[cache_key] = preferred
+            preferred = ("engagement", "adoption", "utilization", "uptime", "health", "score", "index", "rate", "pct", "percent")
+            raw_counter = ("calls", "requests", "transactions", "units", "count", "volume")
+            cache[cache_key] = max(rows, key=lambda col: (
+                sum(word in col.lower() for word in preferred),
+                -sum(word in col.lower() for word in raw_counter),
+            ))
     return cache[cache_key]
 
 
@@ -608,7 +607,7 @@ def _schema_free_usage_rows(tenant_id: str, customer_id: str) -> list[dict]:
 
     cache: dict = {}
     schema = get_schema(tenant_id, dataset["id"])
-    date_col = next(
+    date_col = _concept_column_on_dataset(tenant_id, dataset["id"], "usage_date", cache) or next(
         (c["column_name"] for c in schema if c.get("dtype") == "date"), None
     )
     raw_rows = get_dataset_rows(tenant_id, dataset["id"], entity_id=customer_id)
@@ -784,6 +783,8 @@ def _schema_free_ticket_rows(tenant_id: str, customer_id: str) -> list[dict]:
     severity_col = _concept_column_on_dataset(tenant_id, dataset["id"], "ticket_severity", cache)
     created_col = _concept_column_on_dataset(tenant_id, dataset["id"], "ticket_created_at", cache)
     resolved_col = _concept_column_on_dataset(tenant_id, dataset["id"], "ticket_resolved", cache)
+    category_col = _concept_column_on_dataset(tenant_id, dataset["id"], "ticket_category", cache)
+    subject_col = _concept_column_on_dataset(tenant_id, dataset["id"], "ticket_subject", cache)
 
     # No ticket_created_at concept mapped (e.g. the LLM-unavailable fallback
     # never sets concepts) -- fall back to whichever column Stage 1 typed
@@ -807,7 +808,9 @@ def _schema_free_ticket_rows(tenant_id: str, customer_id: str) -> list[dict]:
             None,
         )
 
-    concept_mapped_columns = {c for c in (severity_col, created_col, resolved_col) if c}
+    concept_mapped_columns = {
+        c for c in (severity_col, created_col, resolved_col, category_col, subject_col) if c
+    }
     # Prefer a multi-valued categorical column for "category" (e.g.
     # billing/security/technical) over a binary yes/no-looking one, which
     # is far more likely to be a resolved-flag than a ticket category.
@@ -815,14 +818,13 @@ def _schema_free_ticket_rows(tenant_id: str, customer_id: str) -> list[dict]:
         c["column_name"] for c in categorical_cols
         if c["column_name"] not in concept_mapped_columns and not _is_binary_yes_no(c["column_name"])
     ]
-    category_col = category_candidates[0] if category_candidates else next(
-        (c["column_name"] for c in categorical_cols if c["column_name"] not in concept_mapped_columns),
-        None,
-    )
-    subject_col = next(
-        (c["column_name"] for c in schema if c.get("dtype") == "free_text"),
-        None,
-    )
+    if not category_col:
+        category_col = category_candidates[0] if category_candidates else next(
+            (c["column_name"] for c in categorical_cols if c["column_name"] not in concept_mapped_columns),
+            None,
+        )
+    if not subject_col:
+        subject_col = next((c["column_name"] for c in schema if c.get("dtype") == "free_text"), None)
 
     raw_rows = get_dataset_rows(tenant_id, dataset["id"], entity_id=customer_id)
     normalized = []
@@ -918,13 +920,19 @@ def _schema_free_product_catalog(tenant_id: str) -> list[dict]:
     name_col = _concept_column_on_dataset(tenant_id, dataset["id"], "product_name", cache)
     price_col = _concept_column_on_dataset(tenant_id, dataset["id"], "price_per_seat", cache)
     tier_col = _concept_column_on_dataset(tenant_id, dataset["id"], "product_tier_level", cache)
+    category_col = _concept_column_on_dataset(tenant_id, dataset["id"], "product_category", cache)
+    description_col = _concept_column_on_dataset(tenant_id, dataset["id"], "product_description", cache)
+    complements_col = _concept_column_on_dataset(tenant_id, dataset["id"], "product_complements", cache)
 
-    concept_mapped_columns = {c for c in (id_col, name_col, price_col, tier_col) if c}
-    category_col = next(
-        (c["column_name"] for c in schema
-         if c.get("dtype") == "categorical" and c["column_name"] not in concept_mapped_columns),
-        None,
-    )
+    concept_mapped_columns = {
+        c for c in (id_col, name_col, price_col, tier_col, category_col, description_col, complements_col) if c
+    }
+    if not category_col:
+        category_col = next(
+            (c["column_name"] for c in schema
+             if c.get("dtype") == "categorical" and c["column_name"] not in concept_mapped_columns),
+            None,
+        )
 
     raw_rows = get_dataset_rows(tenant_id, dataset["id"])
 
@@ -967,6 +975,8 @@ def _schema_free_product_catalog(tenant_id: str) -> list[dict]:
         out["tier_level"] = tier_level
         out["price_per_seat"] = price if price is not None else 0.0
         out["category"] = row.get(category_col) if category_col else None
+        out["description"] = row.get(description_col) if description_col else None
+        out["complements"] = row.get(complements_col) if complements_col else None
         out["extra_attributes"] = {}
         out["is_schema_free_synthetic"] = True
         normalized.append(out)
@@ -1801,8 +1811,8 @@ def add_catalog_product(tenant_id: str, product_name: str, category: str,
     conn = get_connection()
     try:
         cur = conn.execute(
-            "INSERT INTO product_catalog (tenant_id, product_name, category, tier_level, price_per_seat, description, source) VALUES (?, ?, ?, ?, ?, ?, 'custom')",
-            (tenant_id, product_name, category, tier_level, price_per_seat, description)
+            "INSERT INTO product_catalog (tenant_id, product_id, product_name, category, tier_level, price_per_seat, description, source) VALUES (?, ?, ?, ?, ?, ?, ?, 'upload')",
+            (tenant_id, str(uuid.uuid4()), product_name, category, tier_level, price_per_seat, description)
         )
         conn.commit()
         row = conn.execute("SELECT * FROM product_catalog WHERE rowid = ?", (cur.lastrowid,)).fetchone()
@@ -1811,7 +1821,7 @@ def add_catalog_product(tenant_id: str, product_name: str, category: str,
         conn.close()
 
 
-def remove_catalog_product(tenant_id: str, product_id: int) -> bool:
+def remove_catalog_product(tenant_id: str, product_id: str) -> bool:
     """Deletes a product from the tenant catalog."""
     conn = get_connection()
     try:
@@ -1825,7 +1835,7 @@ def remove_catalog_product(tenant_id: str, product_id: int) -> bool:
         conn.close()
 
 
-def update_catalog_product(tenant_id: str, product_id: int, updates: dict) -> dict | None:
+def update_catalog_product(tenant_id: str, product_id: str, updates: dict) -> dict | None:
     """Updates fields on an existing catalog product."""
     allowed = {"product_name", "category", "tier_level", "price_per_seat", "description"}
     fields = {k: v for k, v in updates.items() if k in allowed}

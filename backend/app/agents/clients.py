@@ -10,7 +10,7 @@ from app.config import LLM_MODEL, LLM_TEMPERATURE
 from app.indiaai_client import make_client
 from app.llm_retry import completion_with_retry
 from app.logging_config import get_logger
-from app.models import CandidateProducts, CriticVerdict, Product, RecommendationDraft, RetentionAction, SignalVerdict
+from app.models import CriticVerdict, RecommendationDraft, RetentionAction, SignalVerdict
 
 log = get_logger(__name__)
 
@@ -226,21 +226,3 @@ def build_retention_fallback(message):
         action_text="Flag for a manual account review before deciding on next steps -- fallback heuristic used because the live model was unavailable.",
         talking_point=None,
     )
-
-
-def build_retrieval_fallback(message):
-    payload = _parse_message(message)
-    catalog = payload.get("catalog") if isinstance(payload, dict) else None
-    if isinstance(catalog, list) and catalog:
-        products = []
-        for item in catalog[:3]:
-            if isinstance(item, dict):
-                products.append(
-                    {
-                        "product_name": item.get("product_name") or item.get("name") or "Unknown product",
-                        "price_per_seat": item.get("price_per_seat", 0),
-                        "description": item.get("description"),
-                    }
-                )
-        return CandidateProducts(products=[Product(**p) for p in products], method_used="keyword")
-    return CandidateProducts(products=[], method_used="keyword")

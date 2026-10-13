@@ -32,14 +32,6 @@ from app.auth import create_tenant_key
 UPLOADS_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "tenant_uploads")
 
 
-def _tenant_has_data(tenant_id: str) -> bool:
-    """Cheap check so we don't re-ingest CSVs on every subsequent login --
-    only the first login for a tenant_id should trigger ingestion. Checks
-    both the old fixed tables (migrated/legacy tenants) and the new
-    schema-free tenant_datasets table (tenants ingested via Stage 1)."""
-    return len(db.get_customers(tenant_id)) > 0 or len(db.list_tenant_datasets(tenant_id)) > 0
-
-
 def _tenant_has_key(tenant_id: str) -> bool:
     record = db.get_tenant_api_key(tenant_id)
     return bool(record and not record.get("revoked"))
@@ -54,18 +46,14 @@ def _tenant_has_uploads(tenant_id: str) -> bool:
 
 def bootstrap_new_tenant_data(tenant_id: str) -> tuple[dict | None, str | None]:
     """
-    Runs schema-free ingestion for any CSVs already sitting under
-    data/tenant_uploads/<tenant_id>/, if this tenant has no data yet.
-    Returns (ingestion_summary, warning) -- both None if the tenant
-    already had data (nothing to do).
+    Refreshes uploaded CSVs on login, including files added after the first
+    import and files that previously failed. Schema discovery is cached.
+    Returns (ingestion_summary, warning).
 
     Extracted out of login_or_provision() so app/accounts.py's sign_up()
     can run the exact same bootstrap step for a brand-new self-service
     signup, instead of duplicating this logic.
     """
-    if _tenant_has_data(tenant_id):
-        return None, None
-
     if not _tenant_has_uploads(tenant_id):
         return None, (
             f"No CSVs found under data/tenant_uploads/{tenant_id}/. "

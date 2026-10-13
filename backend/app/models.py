@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional, Literal   
 
 class Product(BaseModel):              
@@ -59,6 +59,16 @@ class RecommendationDraft(BaseModel):
     # doesn't emit it still yields a valid draft. workflow._compute_confidence
     # blends this with data-completeness/retrieval-fit and applies penalties.
     confidence: float = 0.5
+
+    @field_validator("revenue_score")
+    @classmethod
+    def clamp_revenue_score(cls, value: float) -> float:
+        return max(0.0, min(100.0, value))
+
+    @field_validator("confidence")
+    @classmethod
+    def clamp_confidence(cls, value: float) -> float:
+        return max(0.0, min(1.0, value))
 
 
 class RetentionAction(BaseModel):

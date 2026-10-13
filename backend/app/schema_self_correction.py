@@ -24,11 +24,13 @@ analysis call.
 """
 
 import json
+import os
 
 from app.indiaai_client import optional_client
 
 from app.config import LLM_MODEL
 from app.logging_config import get_logger
+from app.llm_retry import completion_with_retry_sync
 from app import db
 from app import schema_discovery
 from app import prompt_architect
@@ -104,8 +106,10 @@ trust -- an empty flags list means you're confident you can proceed for both cat
 no markdown fences."""
 
     try:
-        resp = client.chat.completions.create(
+        resp = completion_with_retry_sync(
+            client,
             model=LLM_MODEL, temperature=0,
+            max_tokens=max(1024, int(os.getenv("LLM_MAX_OUTPUT_TOKENS", "2048"))),
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
         )
@@ -178,10 +182,16 @@ def run_self_correction(tenant_id: str) -> dict:
         if not any_resolved_this_round:
             # Nothing changed this round -- further iterations won't help,
             # so stop early and record whatever's left as unresolved.
-            for concept, flags in by_concept.items():
-                if concept not in [r["concept"] for r in resolved_log]:
-                    unresolved_log.extend(flags)
+            if iteration < MAX_ITERATIONS:
+                for concept, flags in by_concept.items():
+                    if concept not in [r["concept"] for r in resolved_log]:
+                        unresolved_log.extend(flags)
             break
+
+    unresolved_log = list({
+        (f.get("concept"), f.get("flag_type"), f.get("detail"), f.get("_customer_id")): f
+        for f in unresolved_log
+    }.values())
 
     for f in unresolved_log:
         db.record_schema_gap(

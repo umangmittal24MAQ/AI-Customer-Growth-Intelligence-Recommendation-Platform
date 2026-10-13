@@ -124,3 +124,11 @@ def test_rate_limit_error_parser():
         def __str__(self):
             return 'Please try again in 4.14s'
     assert retry_after_seconds(RateLimit(), 0) >= 4.14
+
+
+def test_live_workflow_uses_one_time_revenue_model():
+    db.set_tenant_config("test-tenant", revenue_model="one_time")
+    agents, _, _ = agents_for()
+    result = evaluate(agents)
+    assert result["recommended_product"] == "Advanced Swim"
+    assert result["estimated_deal_value"] == 600

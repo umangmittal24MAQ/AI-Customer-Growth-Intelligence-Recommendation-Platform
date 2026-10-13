@@ -47,7 +47,7 @@ export function AppDataProvider({ children }) {
   // Poll only while its first catalog/customers are missing: otherwise the
   // initial empty response can remain on screen until a manual page reload.
   useEffect(() => {
-    if (!initialized || dataStatus?.can_run_analysis || customers.length > 0) return undefined
+    if (!initialized || dataStatus?.can_run_analysis) return undefined
     let attempts = 0
     let inFlight = false
     const timer = setInterval(async () => {
@@ -65,7 +65,7 @@ export function AppDataProvider({ children }) {
       } finally { inFlight = false }
     }, 4000)
     return () => clearInterval(timer)
-  }, [initialized, dataStatus?.can_run_analysis, customers.length, refresh])
+  }, [initialized, dataStatus?.can_run_analysis, refresh])
 
   return (
     <AppDataContext.Provider value={{ customers, analytics, dataStatus, catalog, loading, initialized, prefetch, refresh }}>

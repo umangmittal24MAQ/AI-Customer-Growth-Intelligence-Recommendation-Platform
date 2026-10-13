@@ -18,35 +18,32 @@ import pytest
 
 
 from app.agents.recommendation_agent import build_recommendation_agent
-from app.agents.retrieval_agent import build_retrieval_agent
 from app.agents.signal_agent import build_signal_agent
 from tests.test_agents.conftest import build_signal_request, get_case, requires_indiaai, run_agent
 
 
-def _run_signal_and_retrieval(case, tenant_profile, catalog):
+def _run_signal_and_candidates(case, tenant_profile, catalog):
     signal_agent = build_signal_agent()
     request = build_signal_request(case, tenant_profile)
     signal_verdict = asyncio.run(run_agent(signal_agent, request))
 
-    retrieval_agent = build_retrieval_agent()
-    retrieval_input = {**request, "signal_verdict": signal_verdict.dict(), "catalog": catalog}
-    candidates = asyncio.run(run_agent(retrieval_agent, retrieval_input))
-    return request, signal_verdict, candidates
+    # Runtime uses deterministic eligible-product screening, not the old retrieval LLM.
+    return request, signal_verdict, catalog
 
 
 @requires_indiaai
 def test_expansion_customer_gets_grounded_recommendation(golden_set):
     case = get_case(golden_set, "obvious_expansion")
     catalog = golden_set["catalog"]
-    request, signal_verdict, candidates = _run_signal_and_retrieval(
+    request, signal_verdict, candidates = _run_signal_and_candidates(
         case, golden_set["tenant_profile"], catalog
     )
 
     rec_agent = build_recommendation_agent()
     rec_input = {
         **request,
-        "signal_verdict": signal_verdict.dict(),
-        "candidate_products": [p.dict() for p in candidates.products],
+        "signal_verdict": signal_verdict.model_dump(),
+        "candidate_products": candidates,
     }
     recommendation = asyncio.run(run_agent(rec_agent, rec_input))
 
@@ -69,15 +66,15 @@ def test_expansion_customer_gets_grounded_recommendation(golden_set):
 def test_churn_customer_never_gets_product_from_recommendation_agent(golden_set):
     case = get_case(golden_set, "obvious_churn")
     catalog = golden_set["catalog"]
-    request, signal_verdict, candidates = _run_signal_and_retrieval(
+    request, signal_verdict, candidates = _run_signal_and_candidates(
         case, golden_set["tenant_profile"], catalog
     )
 
     rec_agent = build_recommendation_agent()
     rec_input = {
         **request,
-        "signal_verdict": signal_verdict.dict(),
-        "candidate_products": [p.dict() for p in candidates.products],
+        "signal_verdict": signal_verdict.model_dump(),
+        "candidate_products": candidates,
     }
     recommendation = asyncio.run(run_agent(rec_agent, rec_input))
 

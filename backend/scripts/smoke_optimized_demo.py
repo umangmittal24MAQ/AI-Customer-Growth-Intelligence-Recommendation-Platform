@@ -10,6 +10,8 @@ import tempfile
 import types
 from app import db, onboarding, config, pipeline, indiaai_client
 from app.agents import clients
+from scripts.generate_trust_demo import make_dataset
+from scripts import run_tenant_ingestion
 
 
 
@@ -48,6 +50,11 @@ def main():
         db.DB_PATH = str(Path(tmp)/'traject-test.db')
         db.init_db()
         tenant='traject-showcase'
+        uploads = Path(tmp)/'tenant_uploads'
+        onboarding.UPLOADS_DIR = str(uploads)
+        run_tenant_ingestion.UPLOADS_DIR = str(uploads)
+        make_dataset(12, uploads / tenant)
+        (uploads / tenant / 'reviewer_labels_DO_NOT_UPLOAD.csv').unlink()
         login=onboarding.login_or_provision(tenant)
         customers=db.get_customers(tenant)
         catalog=db.get_product_catalog(tenant)

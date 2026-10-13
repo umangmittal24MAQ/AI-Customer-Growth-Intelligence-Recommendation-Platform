@@ -15,6 +15,7 @@ only as a seed hint fed into the LLM call, never as a gate.
 
 import hashlib
 import json
+import os
 from datetime import date
 
 import pandas as pd
@@ -22,6 +23,7 @@ from app.indiaai_client import optional_client
 
 from app.config import LLM_MODEL
 from app.logging_config import get_logger
+from app.llm_retry import completion_with_retry_sync
 from app.schema_mapping import KNOWN_ALIASES
 from app import db
 
@@ -34,10 +36,13 @@ log = get_logger(__name__)
 # Everything else about the data is free-form. NULL/omitted concept is
 # always valid -- most columns won't map to any of these.
 CONCEPTS = [
-    "customer_id", "customer_name", "renewal_date", "seats", "plan_tier",
-    "active_users", "storage_used_gb", "storage_limit_gb", "usage_trend_metric",
-    "ticket_severity", "ticket_created_at", "ticket_resolved", "product_id",
-    "product_name", "price_per_seat", "product_tier_level",
+    "customer_id", "customer_name", "industry", "account_manager",
+    "renewal_date", "seats", "plan_tier", "active_users", "usage_date",
+    "storage_used_gb", "storage_limit_gb", "usage_trend_metric",
+    "ticket_severity", "ticket_created_at", "ticket_resolved",
+    "ticket_category", "ticket_subject", "product_id", "product_name",
+    "price_per_seat", "product_tier_level", "product_category",
+    "product_description", "product_complements",
 ]
 
 SAMPLE_ROWS = 25
@@ -155,20 +160,28 @@ def _fallback_column_entry(col: str, stats: dict) -> dict:
 FALLBACK_CONCEPT_COLUMNS = {
  "customer_id": {"customer_id", "seller_id", "workspace_id", "plant_code", "store_id", "account_ref"},
  "customer_name": {"customer_name", "store_name", "customer_org", "facility_name", "retailer_name", "company_name"},
+ "industry": {"industry", "sector", "vertical"},
+ "account_manager": {"account_manager", "csm_owner", "owner", "sales_rep"},
  "plan_tier": {"plan_tier", "subscription_tier", "service_plan", "package_tier", "plan_level"},
  "seats": {"seats", "licensed_seats", "machine_count", "pos_terminals", "seat_licenses"},
  "renewal_date": {"renewal_date", "renews_on", "contract_expiry", "agreement_end_date"},
  "active_users": {"active_users", "monthly_active_devs", "active_machines_operating", "active_terminals_in_use", "active_reps_logged_in"},
+ "usage_date": {"month", "usage_month", "period", "reporting_date"},
  "storage_used_gb": {"storage_used_gb", "data_stored_gb"},
  "storage_limit_gb": {"storage_limit_gb", "storage_plan_cap_gb"},
  "usage_trend_metric": {"feature_usage_score", "product_engagement_index", "equipment_uptime_pct", "foot_traffic_index", "crm_adoption_score", "monthly_gmv_usd"},
  "ticket_severity": {"severity"},
  "ticket_created_at": {"created_at", "opened_date", "opened_on", "logged_on", "filed_on", "created_on"},
  "ticket_resolved": {"resolved", "is_closed", "closed_flag", "status_closed"},
+ "ticket_category": {"category", "issue_category", "ticket_type"},
+ "ticket_subject": {"subject", "summary", "issue", "description"},
  "product_id": {"product_id", "sku"},
  "product_name": {"product_name", "offering_name"},
  "price_per_seat": {"price_per_seat", "seat_price_usd"},
  "product_tier_level": {"tier_level", "tier"},
+ "product_category": {"product_group", "category", "product_category"},
+ "product_description": {"description", "product_description"},
+ "product_complements": {"complements", "cross_sell"},
 }
 
 def _fallback_schema(columns: list[str], stats: dict, dataset_label: str, version: str) -> dict:
@@ -189,6 +202,44 @@ def _fallback_schema(columns: list[str], stats: dict, dataset_label: str, versio
     return {"dataset_label": dataset_label or "unclassified_dataset", "join_key_column": join,
             "columns": entries, "schema_version": version}
 
+
+def _sanitize_concepts(entries: list[dict]) -> list[dict]:
+    """Enforce dataset-local concept constraints after probabilistic discovery."""
+    by_concept = {concept: [e for e in entries if e.get("concept") == concept] for concept in CONCEPTS}
+    is_timeseries = bool(by_concept["usage_date"])
+    is_catalog = bool(by_concept["product_id"] or by_concept["product_name"])
+
+    if not is_catalog:
+        for concept in ("price_per_seat", "product_tier_level", "product_category", "product_description", "product_complements"):
+            for entry in by_concept[concept]:
+                entry["concept"] = None
+
+    if is_timeseries:
+        for entry in by_concept["seats"]:
+            entry["concept"] = None
+        for entry in entries:
+            meaning = " ".join(str(entry.get(k) or "") for k in ("column", "inferred_label", "description")).lower()
+            if entry.get("concept") in (None, "seats", "active_users") and "active" in meaning and any(word in meaning for word in ("user", "device", "terminal", "machine", "developer", "rep")):
+                entry["concept"] = "active_users"
+            if entry.get("concept") == "active_users" and any(word in meaning for word in ("traffic", "visit", "engagement", "adoption", "uptime", "score", "index", "rate")):
+                entry["concept"] = "usage_trend_metric"
+    else:
+        for entry in by_concept["usage_trend_metric"]:
+            entry["concept"] = None
+
+    trend_entries = [entry for entry in entries if entry.get("concept") == "usage_trend_metric"]
+    if len(trend_entries) > 1:
+        preferred = ("engagement", "adoption", "utilization", "uptime", "health", "score", "index", "rate", "pct", "percent", "traffic")
+        raw_counter = ("calls", "requests", "transactions", "units", "count", "volume")
+        def rank(entry):
+            meaning = " ".join(str(entry.get(k) or "") for k in ("column", "inferred_label", "description")).lower()
+            return sum(word in meaning for word in preferred) - sum(word in meaning for word in raw_counter)
+        chosen = max(trend_entries, key=rank)
+        for entry in trend_entries:
+            if entry is not chosen:
+                entry["concept"] = None
+    return entries
+
 def discover_schema(df: pd.DataFrame, dataset_label_hint: str = None) -> dict:
     """
     Runs Stage 1 for one uploaded file.
@@ -208,24 +259,15 @@ def discover_schema(df: pd.DataFrame, dataset_label_hint: str = None) -> dict:
     seed_hints = _seed_hints(columns)
     sample_rows = df.head(SAMPLE_ROWS).fillna("").to_dict(orient="records")
 
-    # Bundled Traject demo schemas are deterministic and already known: do not
-    # spend an LLM request rediscovering their exact, reviewed field mappings.
-    trusted_showcase_columns = {
-        "workspace_id", "customer_org", "subscription_tier", "licensed_seats",
-        "renews_on", "csm_owner", "nps_last_survey", "usage_month",
-        "product_engagement_index", "monthly_active_devs", "data_stored_gb",
-        "storage_plan_cap_gb", "api_calls", "issue_category", "summary",
-        "opened_on", "is_closed", "sku", "offering_name", "tier",
-        "seat_price_usd", "product_group",
-    }
-    if columns and set(columns).issubset(trusted_showcase_columns) and             ("workspace_id" in columns or "sku" in columns):
-        return _fallback_schema(columns, stats, dataset_label_hint, schema_version)
     client = _client()
     if client is None:
         log.warning("No IndiaAI key -- using conservative fallback classification for all columns.")
         return _fallback_schema(columns, stats, dataset_label_hint, schema_version)
 
-    prompt = f"""You are classifying an uploaded tenant data file for a B2B SaaS upsell/churn analysis tool.
+    prompt = f"""You are classifying an uploaded business dataset for customer health, retention,
+and product-opportunity analysis. The source may come from any industry and its column names are
+unknown. Infer meaning from values, statistics, relationships, and the filename together; never
+require a familiar header or a SaaS-shaped schema.
 Describe the data on its own terms -- do not assume it matches any predefined schema.
 
 Filename hint: {dataset_label_hint or "unknown"}
@@ -242,6 +284,15 @@ For EACH column, return an object with:
   - "relevance": one of high | medium | low | unknown
   - "concept": one of {json.dumps(CONCEPTS)}, or null if none apply
 
+Concept rules:
+  - Map at most one primary usage_trend_metric per dataset. Prefer a comparable health,
+    adoption, engagement, uptime, rate, score, or index over a raw counter such as calls.
+  - active_users is a count of active licensed people/devices, not traffic or visits.
+  - seats is contracted capacity on an account/entity row, not an observed active count.
+  - price_per_seat and all product_* concepts belong only to a product catalog; basket,
+    order, or transaction values are not catalog prices.
+  - A static account snapshot without a usage_date must not supply usage_trend_metric.
+
 Also decide, at the dataset level:
   - "dataset_label": what kind of dataset is this overall (e.g. "customers", "usage_metrics",
     "support_tickets", "product_catalog", or something else entirely like "nps_survey", "billing_export")
@@ -251,9 +302,11 @@ Return ONLY a JSON object: {{"dataset_label": ..., "join_key_column": ..., "colu
 No preamble, no markdown fences."""
 
     try:
-        resp = client.chat.completions.create(
+        resp = completion_with_retry_sync(
+            client,
             model=LLM_MODEL,
             temperature=0,
+            max_tokens=max(1024, int(os.getenv("LLM_MAX_OUTPUT_TOKENS", "2048"))),
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
         )
@@ -269,8 +322,8 @@ No preamble, no markdown fences."""
             final_columns.append(entry)
         return {
             "dataset_label": result.get("dataset_label") or dataset_label_hint or "unclassified_dataset",
-            "join_key_column": result.get("join_key_column"),
-            "columns": final_columns,
+            "join_key_column": result.get("join_key_column") if result.get("join_key_column") in columns else None,
+            "columns": _sanitize_concepts(final_columns),
             "schema_version": schema_version,
         }
     except Exception as e:
@@ -328,8 +381,10 @@ If found is false, dataset/column should be null. Be conservative -- only say fo
 plausibly represents this concept, not just because nothing else fits. No preamble, no markdown fences."""
 
     try:
-        resp = client.chat.completions.create(
+        resp = completion_with_retry_sync(
+            client,
             model=LLM_MODEL, temperature=0,
+            max_tokens=max(1024, int(os.getenv("LLM_MAX_OUTPUT_TOKENS", "2048"))),
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
         )
@@ -365,27 +420,31 @@ def ingest_file(tenant_id: str, filepath: str, original_filename: str, dataset_l
         df = pd.read_excel(filepath)
 
     existing = db.get_tenant_dataset(tenant_id, original_filename)
-    discovery = discover_schema(df, dataset_label_hint or original_filename)
-
-    if existing and existing.get("schema_version") == discovery["schema_version"]:
-        log.info("Dataset '%s' for tenant '%s' unchanged -- skipping re-discovery.",
-                  original_filename, tenant_id)
-        dataset_id = existing["id"]
+    version = compute_schema_version(list(df.columns), compute_column_stats(df))
+    if existing and existing.get("schema_version") == version:
+        discovery = {
+            "dataset_label": existing["dataset_label"],
+            "join_key_column": existing["join_key_column"],
+            "schema_version": version,
+            "columns": db.get_schema(tenant_id, existing["id"]),
+        }
     else:
-        dataset_id = db.upsert_tenant_dataset(
-            tenant_id, discovery["dataset_label"], original_filename,
-            row_count=len(df), join_key_column=discovery["join_key_column"],
-            schema_version=discovery["schema_version"],
-        )
+        discovery = discover_schema(df, dataset_label_hint or original_filename)
+
+    unchanged_schema = existing and existing.get("schema_version") == version
+    dataset_id = db.upsert_tenant_dataset(
+        tenant_id, discovery["dataset_label"], original_filename,
+        row_count=len(df), join_key_column=discovery["join_key_column"],
+        schema_version=discovery["schema_version"],
+    )
+    if not unchanged_schema:
         db.replace_tenant_schema_columns(tenant_id, dataset_id, discovery["columns"])
 
-        join_key = discovery["join_key_column"]
-        records = []
-        for row in df.fillna("").to_dict(orient="records"):
-            entity_id = str(row.get(join_key)) if join_key and join_key in row and row.get(join_key) != "" else None
-            records.append({"entity_id": entity_id, "row": row})
-        db.replace_tenant_records(tenant_id, dataset_id, records)
-        log.info("Discovered schema for '%s' (tenant '%s'): dataset_label=%s, %d columns, %d rows.",
-                  original_filename, tenant_id, discovery["dataset_label"], len(discovery["columns"]), len(df))
+    join_key = discovery["join_key_column"]
+    records = []
+    for row in df.fillna("").to_dict(orient="records"):
+        entity_id = str(row.get(join_key)) if join_key and join_key in row and row.get(join_key) != "" else None
+        records.append({"entity_id": entity_id, "row": row})
+    db.replace_tenant_records(tenant_id, dataset_id, records)
 
     return {"dataset_id": dataset_id, **discovery, "changed": not existing or existing.get("schema_version") != discovery["schema_version"]}

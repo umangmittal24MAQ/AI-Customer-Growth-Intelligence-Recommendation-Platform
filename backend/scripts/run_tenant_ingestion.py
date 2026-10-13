@@ -8,7 +8,7 @@ through one of two pipelines that already exist in the codebase:
     ingest_file()           -- apply mapping, validate, upsert rows, and run
                                 discover_unmapped_columns() on anything left over
     Kept for the legacy fixed-schema tenants and for tests
-    (scripts/migrate_to_schema_free.py) -- not the path new tenants take.
+    -- retained for legacy fixed-schema integrations; not new tenants.
 
   Schema-free flow (--schema-free):
     ingest_all_files_for_tenant_schema_free() -- the same Stage 1 -> 2 -> 3
@@ -227,7 +227,7 @@ def main():
 
     ok = sum(1 for r in results if r["status"] == "ok")
     print(f"Done. {ok}/{len(results)} file(s) ingested successfully.")
-    print("Run scripts/generate_dynamic_fields_report.py to see all discovered fields per tenant.")
+    print("Check tenant schema details in the dashboard and SQLite database.")
 
 
 if __name__ == "__main__":

@@ -248,24 +248,23 @@ def _classify_intent(message: str) -> str:
 
 
 def _get_or_create_session(conversation_id: Optional[str], tenant_id: str):
-    if conversation_id and conversation_id in _sessions:
-        session = _sessions[conversation_id]
-        session["tenant_id"] = tenant_id
+    if conversation_id and (tenant_id, conversation_id) in _sessions:
+        session = _sessions[(tenant_id, conversation_id)]
         return conversation_id, session
     # Try loading from DB (survives server restarts and logout/login)
     if conversation_id:
         persisted = db.load_chat_session(conversation_id, tenant_id)
         if persisted:
-            _sessions[conversation_id] = persisted
-            return conversation_id, _sessions[conversation_id]
-    cid = conversation_id or str(uuid.uuid4())
-    _sessions[cid] = {
+            _sessions[(tenant_id, conversation_id)] = persisted
+            return conversation_id, persisted
+    cid = str(uuid.uuid4())
+    _sessions[(tenant_id, cid)] = {
         "conversation_id": cid, "tenant_id": tenant_id, "history": [],
         "last_customer_id": None, "last_customer_name": None,
         "created_at": datetime.utcnow().isoformat(),
         "first_message": None,
     }
-    return cid, _sessions[cid]
+    return cid, _sessions[(tenant_id, cid)]
 
 
 def _add_to_history(session: dict, role: str, content: str):
@@ -1660,19 +1659,19 @@ def list_sessions(tenant_id: str) -> list:
              "last_customer": s.get("last_customer_name"),
              "first_message": s.get("first_message"),
              "turns": len(s.get("history", [])) // 2}
-            for sid, s in _sessions.items() if s.get("tenant_id") == tenant_id
+            for (_, sid), s in _sessions.items() if s.get("tenant_id") == tenant_id
         ]
 
 
 def clear_session(conversation_id: str, tenant_id: str) -> bool:
-    _sessions.pop(conversation_id, None)
+    _sessions.pop((tenant_id, conversation_id), None)
     try:
         return db.delete_chat_session_db(conversation_id, tenant_id)
     except Exception:
         return False
 
 def get_session_history(conversation_id: str, tenant_id: str) -> list:
-    s = _sessions.get(conversation_id)
+    s = _sessions.get((tenant_id, conversation_id))
     if s and s.get("tenant_id") == tenant_id:
         return s.get("history", [])
     try:

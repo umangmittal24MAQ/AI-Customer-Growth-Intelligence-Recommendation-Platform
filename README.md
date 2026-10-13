@@ -28,7 +28,7 @@ Create a tenant with the **Traject Showcase** preset. It contains 12 synthetic S
 
 The IndiaAI endpoint may return a populated reasoning field but blank final `content`. The shared agent client logs `finish_reason`, completion token usage, and whether reasoning was present, retries an empty response once with a larger token budget, then **abstains safely** if it still fails. Default `LLM_MAX_OUTPUT_TOKENS=2048`; adjust on your deployment after measuring. The `/api/*` routes remain usable without a model, but no unverified opportunity is approved.
 
-See `INDIAAI_SETUP.md` for more detail. This is a local demo, not a production security audit. Live performance must be benchmarked with an authorized account.
+See `INDIAAI_SETUP.md` for provider details, [workflows and features](docs/workflows-and-features.md), the [architecture](docs/architecture.md), and the [data flow](docs/data-flow.md). This is a local demo, not a production security audit. Live performance must be benchmarked with an authorized account.
 
 ## GitHub and updates
 
@@ -47,3 +47,15 @@ git clone https://github.com/umangmittal24MAQ/AI-Customer-Growth-Intelligence-Re
 ```
 
 Then create `backend/.env` from `.env.example` on your own machine. The project uses **IndiaAI Qwen only** for LLM inference; `openai` is the client SDK for the OpenAI-compatible MAQ gateway, not a second model provider. Never commit private gateway keys, internal data, runtime databases, or company code without permission.
+
+## Minimal source checkout
+
+Only reachable runtime modules, tests and reproducible synthetic demo generators are
+kept. Signup presets generate their own tenant CSVs on demand. Runtime uploads under
+`backend/data/tenant_uploads/` are ignored by Git. `demo_data/` is retained.
+
+**Before pulling this cleanup commit**, back up local customer or custom CSVs in
+`backend/data/tenant_uploads/`. Git removes formerly tracked sample files during
+checkout. Never commit private gateway keys, customer data or internal code.
+
+For every file's keep/delete decision see [the audit](docs/file-audit.md).

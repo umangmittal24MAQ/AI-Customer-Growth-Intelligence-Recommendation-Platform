@@ -737,7 +737,7 @@ def get_catalog(tenant_id: str = Depends(get_current_tenant)):
             # Without this flag, a fallback-inflated count (e.g. "48 of 50
             # accounts eligible" for a brand-new product line nobody
             # actually stocks yet) looks identical to a real match on the
-            # frontend -- see UpsellCatalog.jsx for how it's surfaced.
+            # frontend catalog response.
             "is_fallback_pool": not same_line,
         })
 
@@ -1445,7 +1445,7 @@ def add_catalog_product_endpoint(body: AddProductRequest, tenant_id: str = Depen
 
 
 @router.delete("/catalog/products/{product_id}")
-def delete_catalog_product_endpoint(product_id: int, tenant_id: str = Depends(get_current_tenant)):
+def delete_catalog_product_endpoint(product_id: str, tenant_id: str = Depends(get_current_tenant)):
     ok = db.remove_catalog_product(tenant_id, product_id)
     if not ok:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -1454,9 +1454,9 @@ def delete_catalog_product_endpoint(product_id: int, tenant_id: str = Depends(ge
 
 @router.patch("/catalog/products/{product_id}")
 def update_catalog_product_endpoint(
-    product_id: int, body: UpdateProductRequest, tenant_id: str = Depends(get_current_tenant)
+    product_id: str, body: UpdateProductRequest, tenant_id: str = Depends(get_current_tenant)
 ):
-    updated = db.update_catalog_product(tenant_id, product_id, {k: v for k, v in body.dict().items() if v is not None})
+    updated = db.update_catalog_product(tenant_id, product_id, {k: v for k, v in body.model_dump().items() if v is not None})
     if not updated:
         raise HTTPException(status_code=404, detail="Product not found")
     return {"status": "updated", "product": updated}

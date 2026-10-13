@@ -1,6 +1,7 @@
 """Bounded retries for IndiaAI gateway rate limits and transient failures."""
 import asyncio
 import re
+import time
 from app.logging_config import get_logger
 log = get_logger(__name__)
 
@@ -26,8 +27,28 @@ async def completion_with_retry(client, **kwargs):
             return await client.chat.completions.create(**kwargs)
         except Exception as exc:
             status = getattr(exc, "status_code", None)
-            if status not in (429, 502, 503, 504) or attempt == 2:
+            transient = status in (429, 502, 503, 504) or type(exc).__name__ in {
+                "APIConnectionError", "APITimeoutError"
+            }
+            if not transient or attempt == 2:
                 raise
             delay = retry_after_seconds(exc, attempt)
             log.warning("IndiaAI HTTP %s; retrying in %.1fs (%d/2).", status, delay, attempt+1)
             await asyncio.sleep(delay)
+
+
+def completion_with_retry_sync(client, **kwargs):
+    """Sync counterpart used by onboarding schema calls."""
+    for attempt in range(3):
+        try:
+            return client.chat.completions.create(**kwargs)
+        except Exception as exc:
+            status = getattr(exc, "status_code", None)
+            transient = status in (429, 502, 503, 504) or type(exc).__name__ in {
+                "APIConnectionError", "APITimeoutError"
+            }
+            if not transient or attempt == 2:
+                raise
+            delay = retry_after_seconds(exc, attempt)
+            log.warning("IndiaAI HTTP %s; retrying in %.1fs (%d/2).", status, delay, attempt + 1)
+            time.sleep(delay)

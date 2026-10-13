@@ -24,11 +24,13 @@ because:
 
 import hashlib
 import json
+import os
 
 from app.indiaai_client import optional_client
 
 from app.config import LLM_MODEL
 from app.logging_config import get_logger
+from app.llm_retry import completion_with_retry_sync
 from app import db
 
 log = get_logger(__name__)
@@ -118,7 +120,8 @@ def architect_prompt(tenant_id: str) -> dict:
     ]
 
     prompt = f"""You are writing a tenant-specific instruction block for downstream reasoning agents
-(Signal, Retrieval, Recommendation, Critic) in a churn/upsell analysis pipeline. These agents will
+(Signal, Retrieval, Recommendation, Critic) in a customer health and product-opportunity pipeline.
+The tenant may belong to any industry; interpret its own business vocabulary. These agents will
 receive this tenant's actual customer data at analysis time -- your job is to tell them, up front,
 how to interpret THIS tenant's schema so they don't have to guess.
 
@@ -145,9 +148,11 @@ Write:
 Return ONLY a JSON object with exactly these three keys. No preamble, no markdown fences."""
 
     try:
-        resp = client.chat.completions.create(
+        resp = completion_with_retry_sync(
+            client,
             model=LLM_MODEL,
             temperature=0,
+            max_tokens=max(1024, int(os.getenv("LLM_MAX_OUTPUT_TOKENS", "2048"))),
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
         )

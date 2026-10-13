@@ -50,7 +50,7 @@ from app import db
 def is_schema_free_tenant(tenant_id: str) -> bool:
     """True if this tenant has any Stage-1-discovered datasets at all --
     covers both brand-new schema-free tenants and legacy tenants that have
-    been run through scripts/migrate_to_schema_free.py."""
+    been processed through the schema-free ingestion path."""
     return bool(db.list_tenant_datasets(tenant_id))
 
 

@@ -4,6 +4,8 @@ These tests deliberately use disposable directories and do not require IndiaAI.
 """
 
 from pathlib import Path
+import json
+from types import SimpleNamespace
 
 import pandas as pd
 
@@ -42,3 +44,35 @@ def test_industry_demo_is_tenant_scoped_and_has_catalog(tmp_path, monkeypatch):
     assert not (tmp_path / 'techflow').exists()
     assert len(pd.read_csv(tenant_dir / 'subscriptions.csv')) == demos.NUM_ENTITIES
     assert len(pd.read_csv(tenant_dir / 'product_catalog.csv')) > 0
+
+
+def test_schema_discovery_accepts_unfamiliar_column_names(monkeypatch):
+    frame = pd.DataFrame([
+        {'orbital_key': 'A-1', 'friendly_caption': 'Acme', 'next_checkpoint': '2027-01-01',
+         'capacity_units': 20},
+        {'orbital_key': 'A-2', 'friendly_caption': 'Beta', 'next_checkpoint': '2027-02-01',
+         'capacity_units': 40},
+    ])
+    result = {
+        'dataset_label': 'account roster',
+        'join_key_column': 'orbital_key',
+        'columns': [
+            {'column': 'orbital_key', 'inferred_label': 'Account key', 'description': 'Unique account',
+             'dtype': 'identifier', 'semantic_role': 'entity_id', 'relevance': 'high', 'concept': 'customer_id'},
+            {'column': 'friendly_caption', 'inferred_label': 'Account name', 'description': 'Display name',
+             'dtype': 'categorical', 'semantic_role': 'dimension', 'relevance': 'high', 'concept': 'customer_name'},
+            {'column': 'next_checkpoint', 'inferred_label': 'Renewal', 'description': 'Next renewal date',
+             'dtype': 'date', 'semantic_role': 'metric', 'relevance': 'high', 'concept': 'renewal_date'},
+            {'column': 'capacity_units', 'inferred_label': 'Licensed capacity', 'description': 'Purchased units',
+             'dtype': 'numeric', 'semantic_role': 'metric', 'relevance': 'high', 'concept': 'seats'},
+        ],
+    }
+    response = SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(result)))])
+    completions = SimpleNamespace(create=lambda **kwargs: response)
+    monkeypatch.setattr(schema_discovery, '_client', lambda: SimpleNamespace(
+        chat=SimpleNamespace(completions=completions)))
+    discovered = schema_discovery.discover_schema(frame, 'mystery.csv')
+    assert discovered['join_key_column'] == 'orbital_key'
+    assert {c['column']: c['concept'] for c in discovered['columns']} == {
+        'orbital_key': 'customer_id', 'friendly_caption': 'customer_name',
+        'next_checkpoint': 'renewal_date', 'capacity_units': 'seats'}
